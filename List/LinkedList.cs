@@ -15,7 +15,7 @@ namespace List
             get
             {
                 //Node current = _root;
-                //for(int i=1;i<=index;i++)
+                //for (int i = 1; i <= index; i++)
                 //{
                 //    current = current.Next;
                 //}
@@ -75,6 +75,41 @@ namespace List
             Length++;
             _tail.Next = new Node(value);
             _tail = _tail.Next;
+        }
+        public void AddToBeginning(int value)
+        {
+            Length++;
+            Node first = new Node(value);
+            first.Next = _root;
+            _root = first;
+        }
+        public void AddAtIndex(int value, int index)
+        {
+            if(index < 0 || index > Length)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            if (index != 0 && index != Length)
+            {
+                Node newNode = new Node(value);
+                newNode.Next = GetNodeByIndex(index);
+                GetNodeByIndex(index - 1).Next = newNode;
+                Length++;
+            }
+            if (index == 0)
+            {
+                AddToBeginning(value);
+            }
+            if (index == Length)
+            {
+                Add(value);
+            } 
+        }
+        public void AddLinkedListAtTheEnd(LinkedList linkedList)
+        {
+            _tail.Next = linkedList._root;
+            _tail = linkedList._tail;
+            Length += linkedList.Length;
         }
         public void RemoveFirst()
         {
@@ -144,7 +179,7 @@ namespace List
                 throw new IndexOutOfRangeException();
             }
             Node current = _root;
-            for (int i = 1; i < index; i++)
+            for (int i = 0; i < index; i++)
             {
                 current = current.Next;
             }

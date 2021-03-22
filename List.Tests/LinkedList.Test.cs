@@ -1,19 +1,19 @@
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace List.Tests
 {
-    public class ArrayListTests
+    public class LinkedListTests 
     {
         [TestCase(4, new int[] { 1, 2, 3 }, new int[] { 1, 2, 3, 4 })]
         [TestCase(5, new int[] { 1, 2, 3 }, new int[] { 1, 2, 3, 5 })]
         [TestCase(44, new int[] { 1, 2, 3 }, new int[] { 1, 2, 3, 44 })]
         public void AddTest(int value, int[] actualArray, int[] expectedArray)
         {
-            ArrayList actual = new ArrayList(actualArray);
-            ArrayList expected = new ArrayList(expectedArray);
+            LinkedList actual = new LinkedList(actualArray);
+            LinkedList expected = new LinkedList(expectedArray);
             actual.Add(value);
             Assert.AreEqual(expected, actual);
         }
@@ -22,8 +22,8 @@ namespace List.Tests
         [TestCase(44, new int[] { 1, 2, 3 }, new int[] { 44, 1, 2, 3 })]
         public void AddToBeginningTest(int value, int[] actualArray, int[] expectedArray)
         {
-            ArrayList actual = new ArrayList(actualArray);
-            ArrayList expected = new ArrayList(expectedArray);
+            LinkedList actual = new LinkedList(actualArray);
+            LinkedList expected = new LinkedList(expectedArray);
             actual.AddToBeginning(value);
             Assert.AreEqual(expected, actual);
         }
@@ -32,26 +32,26 @@ namespace List.Tests
         [TestCase(44, 3, new int[] { 1, 2, 3 }, new int[] { 1, 2, 3, 44 })]
         public void AddAtIndexTest(int value, int index, int[] actualArray, int[] expectedArray)
         {
-            ArrayList actual = new ArrayList(actualArray);
-            ArrayList expected = new ArrayList(expectedArray);
+            LinkedList actual = new LinkedList(actualArray);
+            LinkedList expected = new LinkedList(expectedArray);
             actual.AddAtIndex(value, index);
             Assert.AreEqual(expected, actual);
         }
         [TestCase(44, 4, new int[] { 1, 2, 3 })]
         public void AddAtIndex_WhenIndexOutOfRange_IndexOutOfRangeExpection(int value, int index, int[] actualArray)
         {
-            ArrayList actual = new ArrayList(actualArray);
+            LinkedList actual = new LinkedList(actualArray);
             Assert.Throws<IndexOutOfRangeException>(() => actual.AddAtIndex(value, index));
         }
         [TestCase(new int[] { 4, 5, 6 }, new int[] { 1, 2, 3 }, new int[] { 4, 5, 6, 1, 2, 3 })]
-        [TestCase(new int[] { 44, 55, 0, 66 }, new int[] { 1, 2, 3 }, new int[] { 44, 55, 0, 66 , 1, 2, 3 })]
+        [TestCase(new int[] { 44, 55, 0, 66 }, new int[] { 1, 2, 3 }, new int[] { 44, 55, 0, 66, 1, 2, 3 })]
         [TestCase(new int[] { 4, 5, 6 }, new int[] { 6, 6, 53 }, new int[] { 4, 5, 6, 6, 6, 53 })]
-        public void AddArrayListAtTheEndTest(int[] actualArray, int[] addingArray, int[] expectedArray)
+        public void AddLinkedListAtTheEndTest(int[] actualArray, int[] addingArray, int[] expectedArray)
         {
-            ArrayList actual = new ArrayList(actualArray);
-            ArrayList adding = new ArrayList(addingArray);
-            actual.AddArrayListAtTheEnd(adding);
-            ArrayList expected = new ArrayList(expectedArray);
+            LinkedList actual = new LinkedList(actualArray);
+            LinkedList adding = new LinkedList(addingArray);
+            actual.AddLinkedListAtTheEnd(adding);
+            LinkedList expected = new LinkedList(expectedArray);
             Assert.AreEqual(expected, actual);
 
         }
@@ -66,11 +66,11 @@ namespace List.Tests
             ArrayList expected = new ArrayList(expectedArray);
             Assert.AreEqual(expected, actual);
         }
-        [TestCase(new int[] { 1, 2, 3 }, new int[] { 4, 5, 6 }, 1, new int[] { 1, 4, 5, 6, 2, 3})]
+        [TestCase(new int[] { 1, 2, 3 }, new int[] { 4, 5, 6 }, 1, new int[] { 1, 4, 5, 6, 2, 3 })]
         [TestCase(new int[] { 44, 55, 0, 66 }, new int[] { 1, 2, 3 }, 2, new int[] { 44, 55, 1, 2, 3, 0, 66 })]
         [TestCase(new int[] { 4, 5, 6 }, new int[] { 6, 6, 53 }, 3, new int[] { 4, 5, 6, 6, 6, 53 })]
-        [TestCase(new int[] { 4, 5, 6 }, new int[] { 6, 6, 53 }, 0, new int[] { 6, 6, 53, 4, 5, 6})]
-        public void AddArrayListByIndexTest(int [] actualArray, int[] addingArray, int index, int[] expectedArray)
+        [TestCase(new int[] { 4, 5, 6 }, new int[] { 6, 6, 53 }, 0, new int[] { 6, 6, 53, 4, 5, 6 })]
+        public void AddArrayListByIndexTest(int[] actualArray, int[] addingArray, int index, int[] expectedArray)
         {
             ArrayList actual = new ArrayList(actualArray);
             ArrayList adding = new ArrayList(addingArray);
@@ -180,7 +180,7 @@ namespace List.Tests
         [TestCase(new int[] { 1, 2, 3 }, 1, 1, new int[] { 1, 3 })]
         [TestCase(new int[] { 44, 55, 0, 66 }, 2, 2, new int[] { 44, 55 })]
         [TestCase(new int[] { 4, 5, 6, 7, 8, 9, 123123, 5432, 9 }, 4, 2, new int[] { 4, 5, 123123, 5432, 9 })]
-        public void RemoveElementsByIndexTest(int [] actualArray, int numberOfElements, int index, int[] expectedArray)
+        public void RemoveElementsByIndexTest(int[] actualArray, int numberOfElements, int index, int[] expectedArray)
         {
             ArrayList actual = new ArrayList(actualArray);
             ArrayList expected = new ArrayList(expectedArray);
@@ -201,7 +201,7 @@ namespace List.Tests
             ArrayList actual = new ArrayList(actualArray);
             Assert.Throws<IndexOutOfRangeException>(() => actual.RemoveElementsByIndex(numberOfElements, index));
         }
-        [TestCase(new int[] {1, 3, 5, 64}, 2, 5)]
+        [TestCase(new int[] { 1, 3, 5, 64 }, 2, 5)]
         [TestCase(new int[] { 1, 3, 5, 64 }, 3, 64)]
         [TestCase(new int[] { 1, 41, 5, 64 }, 1, 41)]
         public void GetValueAtIndexTest(int[] actualArray, int index, int expected)
@@ -256,7 +256,7 @@ namespace List.Tests
         [TestCase(new int[] { 1, 3, 5, 64 }, 64)]
         [TestCase(new int[] { 2, 3, 4, 5 }, 5)]
         [TestCase(new int[] { 32, 31, 43 }, 43)]
-        public void GetMaxValueTest(int[] actualArray,  int expected)
+        public void GetMaxValueTest(int[] actualArray, int expected)
         {
             ArrayList actualArr = new ArrayList(actualArray);
             int actual = actualArr.GetMaxValue();

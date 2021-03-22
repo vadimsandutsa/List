@@ -497,7 +497,7 @@ namespace List
 
             int[] tmpArray = new int[newLength];
 
-            for (int i = 0; i < _array.Length; i++)
+            for (int i = 0; i < Length; i++)
             {
                 tmpArray[i] = _array[i];
             }
