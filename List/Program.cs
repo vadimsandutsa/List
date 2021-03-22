@@ -23,19 +23,19 @@ namespace List
             a.RemoveAllByValue(0);
             a.RemoveFirstByValue(3);
             a.RemoveElementsByIndex(2, 3);
-            //a.SortDown();
+            a.SortDown();
             Console.WriteLine(a.RemoveAllByValue(111110));
-            //a.RemoveElementsByIndex(2, 1);
-            //a.RemoveLastN(2);
+            a.RemoveElementsByIndex(2, 1);
+            a.RemoveLastN(2);
             //a.RemoveFirstN(2);
             //a.Reverse();
             a.RemoveAllByValue(33);
             Console.WriteLine(a);
 
-            LinkedList linkedList = new LinkedList(new int[] { 1, 2, 3, 4, 5 });
-            Console.WriteLine(linkedList[2]);
-            LinkedList linkedList2 = new LinkedList(new int[] { 1, 2, 3, 4, 5 });
-            Console.WriteLine(linkedList2.Equals(linkedList));
+            //LinkedList linkedList = new LinkedList(new int[] { 1, 2, 3, 4, 5 });
+            //Console.WriteLine(linkedList[2]);
+            //LinkedList linkedList2 = new LinkedList(new int[] { 1, 2, 3, 4, 5 });
+            //Console.WriteLine(linkedList2.Equals(linkedList));
         }
     }
 }

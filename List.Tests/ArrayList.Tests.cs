@@ -15,7 +15,7 @@ namespace List.Tests
             ArrayList actual = new ArrayList(actualArray);
             ArrayList expected = new ArrayList(expectedArray);
             actual.Add(value);
-            Assert.AreEqual(actual, expected);
+            Assert.AreEqual(expected, actual);
         }
         [TestCase(4, new int[] { 1, 2, 3 }, new int[] { 4, 1, 2, 3 })]
         [TestCase(5, new int[] { 1, 2, 3 }, new int[] { 5, 1, 2, 3 })]
@@ -25,7 +25,7 @@ namespace List.Tests
             ArrayList actual = new ArrayList(actualArray);
             ArrayList expected = new ArrayList(expectedArray);
             actual.AddToBeginning(value);
-            Assert.AreEqual(actual, expected);
+            Assert.AreEqual(expected, actual);
         }
         [TestCase(4, 0, new int[] { 1, 2, 3 }, new int[] { 4, 1, 2, 3 })]
         [TestCase(5, 2, new int[] { 1, 2, 3 }, new int[] { 1, 2, 5, 3 })]
@@ -35,7 +35,7 @@ namespace List.Tests
             ArrayList actual = new ArrayList(actualArray);
             ArrayList expected = new ArrayList(expectedArray);
             actual.AddAtIndex(value, index);
-            Assert.AreEqual(actual, expected);
+            Assert.AreEqual(expected, actual);
         }
         [TestCase(44, 4, new int[] { 1, 2, 3 })]
         public void AddAtIndex_WhenIndexOutOfRange_IndexOutOfRangeExpection(int value, int index, int[] actualArray)
@@ -52,7 +52,7 @@ namespace List.Tests
             ArrayList adding = new ArrayList(addingArray);
             actual.AddArrayListAtTheEnd(adding);
             ArrayList expected = new ArrayList(expectedArray);
-            Assert.AreEqual(actual, expected);
+            Assert.AreEqual(expected, actual);
 
         }
         [TestCase(new int[] { 4, 5, 6 }, new int[] { 1, 2, 3 }, new int[] { 1, 2, 3, 4, 5, 6 })]
@@ -64,7 +64,7 @@ namespace List.Tests
             ArrayList adding = new ArrayList(addingArray);
             actual.AddArrayListAtTheBegining(adding);
             ArrayList expected = new ArrayList(expectedArray);
-            Assert.AreEqual(actual, expected);
+            Assert.AreEqual(expected, actual);
         }
         [TestCase(new int[] { 1, 2, 3 }, new int[] { 4, 5, 6 }, 1, new int[] { 1, 4, 5, 6, 2, 3})]
         [TestCase(new int[] { 44, 55, 0, 66 }, new int[] { 1, 2, 3 }, 2, new int[] { 44, 55, 1, 2, 3, 0, 66 })]
@@ -76,7 +76,7 @@ namespace List.Tests
             ArrayList adding = new ArrayList(addingArray);
             actual.AddArrayListByIndex(adding, index);
             ArrayList expected = new ArrayList(expectedArray);
-            Assert.AreEqual(actual, expected);
+            Assert.AreEqual(expected, actual);
         }
         [TestCase(new int[] { 1, 2, 3 }, new int[] { 4, 5, 6 }, -1)]
         [TestCase(new int[] { 1, 2, 3 }, new int[] { 4, 5, 6 }, 6)]
@@ -96,7 +96,7 @@ namespace List.Tests
             ArrayList adding = new ArrayList(addingArray);
             actual.AddArrayListByIndex2(adding, index);
             ArrayList expected = new ArrayList(expectedArray);
-            Assert.AreEqual(actual, expected);
+            Assert.AreEqual(expected, actual);
         }
         [TestCase(new int[] { 1, 2, 3 }, new int[] { 4, 5, 6 }, -1)]
         [TestCase(new int[] { 1, 2, 3 }, new int[] { 4, 5, 6 }, 6)]
@@ -114,7 +114,7 @@ namespace List.Tests
             ArrayList actual = new ArrayList(actualArray);
             ArrayList expected = new ArrayList(expectedArray);
             actual.RemoveLast();
-            Assert.AreEqual(actual, expected);
+            Assert.AreEqual(expected, actual);
         }
         [TestCase(new int[] { 1, 2, 3 }, new int[] { 2, 3 })]
         [TestCase(new int[] { 44, 55, 0, 66 }, new int[] { 55, 0, 66 })]
@@ -124,7 +124,7 @@ namespace List.Tests
             ArrayList actual = new ArrayList(actualArray);
             ArrayList expected = new ArrayList(expectedArray);
             actual.RemoveFirst();
-            Assert.AreEqual(actual, expected);
+            Assert.AreEqual(expected, actual);
         }
         [TestCase(new int[] { 1, 2, 3 }, 2, new int[] { 1, 2 })]
         [TestCase(new int[] { 44, 55, 0, 66 }, 0, new int[] { 55, 0, 66 })]
@@ -134,7 +134,7 @@ namespace List.Tests
             ArrayList actual = new ArrayList(actualArray);
             ArrayList expected = new ArrayList(expectedArray);
             actual.RemoveByIndex(index);
-            Assert.AreEqual(actual, expected);
+            Assert.AreEqual(expected, actual);
         }
         [TestCase(new int[] { 1, 2, 3 }, -1)]
         [TestCase(new int[] { 1, 2, 3 }, 444)]
@@ -151,7 +151,7 @@ namespace List.Tests
             ArrayList actual = new ArrayList(actualArray);
             ArrayList expected = new ArrayList(expectedArray);
             actual.RemoveLastN(numberOfElements);
-            Assert.AreEqual(actual, expected);
+            Assert.AreEqual(expected, actual);
         }
         [TestCase(new int[] { 1, 2, 3 }, -1)]
         [TestCase(new int[] { 1, 2, 3 }, 444)]
@@ -168,7 +168,7 @@ namespace List.Tests
             ArrayList actual = new ArrayList(actualArray);
             ArrayList expected = new ArrayList(expectedArray);
             actual.RemoveFirstN(numberOfElements);
-            Assert.AreEqual(actual, expected);
+            Assert.AreEqual(expected, actual);
         }
         [TestCase(new int[] { 1, 2, 3 }, -1)]
         [TestCase(new int[] { 1, 2, 3 }, 444)]
@@ -185,7 +185,7 @@ namespace List.Tests
             ArrayList actual = new ArrayList(actualArray);
             ArrayList expected = new ArrayList(expectedArray);
             actual.RemoveElementsByIndex(numberOfElements, index);
-            Assert.AreEqual(actual, expected);
+            Assert.AreEqual(expected, actual);
         }
         [TestCase(new int[] { 1, 2, 3 }, 1, -2)]
         [TestCase(new int[] { 44, 55, 0, 66 }, 2, 1234)]
@@ -208,7 +208,7 @@ namespace List.Tests
         {
             ArrayList actualArr = new ArrayList(actualArray);
             int actual = actualArr.GetValueAtIndex(index);
-            Assert.AreEqual(actual, expected);
+            Assert.AreEqual(expected, actual);
         }
         [TestCase(new int[] { 1, 3, 5, 64 }, 22)]
         [TestCase(new int[] { 1, 3, 5, 64 }, -3)]
@@ -217,13 +217,14 @@ namespace List.Tests
             ArrayList actualArr = new ArrayList(actualArray);
             Assert.Throws<IndexOutOfRangeException>(() => actualArr.GetValueAtIndex(index));
         }
-        [TestCase(new int[] { 1, 3, 5, 64 }, 2, 5)]
-        [TestCase(new int[] { 1, 3, 5, 64 }, 3, 64)]
-        [TestCase(new int[] { 1, 41, 5, 64 }, 1, 41)]
+        [TestCase(new int[] { 1, 3, 5, 64 }, 5, 2)]
+        [TestCase(new int[] { 1, 3, 5, 64 }, 64, 3)]
+        [TestCase(new int[] { 1, 41, 5, 64 }, 41, 1)]
         public void GetIndexByValueTest(int[] actualArray, int value, int expected)
         {
             ArrayList actualArr = new ArrayList(actualArray);
             int actual = actualArr.GetIndexByValue(value);
+            Assert.AreEqual(expected, actual);
         }
         [TestCase(new int[] { 1, 3, 5, 64 }, 22, 1, new int[] { 1, 22, 5, 64 })]
         [TestCase(new int[] { 1, 3, 5, 64 }, 33, 3, new int[] { 1, 3, 5, 33 })]
@@ -288,25 +289,29 @@ namespace List.Tests
             int actual = actualArr.GetIndexOfMinValue();
             Assert.AreEqual(actual, expected);
         }
-        [TestCase(new int[] { 1, 3, 5, 64 }, 1, new int[] { 3, 5, 64 })]
-        [TestCase(new int[] { 1, 3, 5, 64 }, 5, new int[] { 1, 3, 64 })]
-        [TestCase(new int[] { 1, 41, 5, 64 }, 64, new int[] { 1, 41, 5 })]
-        public void RemoveFirstByValueTest(int[] actualArray, int value, int[] expectedArray)
+        [TestCase(new int[] { 1, 3, 5, 64 }, 1, 0, new int[] { 3, 5, 64 })]
+        [TestCase(new int[] { 1, 3, 5, 64 }, 5, 2, new int[] { 1, 3, 64 })]
+        [TestCase(new int[] { 1, 41, 5, 64 }, 64, 3, new int[] { 1, 41, 5 })]
+        public void RemoveFirstByValueTest(int[] actualArray, int value, int count, int[] expectedArray)
         {
             ArrayList actual = new ArrayList(actualArray);
             ArrayList expected = new ArrayList(expectedArray);
-            actual.RemoveFirstByValue(value);
+            int actualcount = actual.RemoveFirstByValue(value);
+            Assert.AreEqual(actualcount, count);
             Assert.AreEqual(actual, expected);
         }
-        [TestCase(new int[] { 1, 2, 3, 3, 3, 4 }, 3, new int[] { 1, 2, 4 })]
-        [TestCase(new int[] { 1, 64, 5, 64 }, 64, new int[] { 1, 5 })]
-        [TestCase(new int[] { 1, 41, 5, 3, 41 }, 41, new int[] { 1, 5, 3 })]
-        public void RemoveAllByValueTest(int[] actualArray, int value, int[] expectedArray)
+        [TestCase(new int[] { 1, 2, 3, 3, 3, 4 }, 3, 3, new int[] { 1, 2, 4 })]
+        [TestCase(new int[] { 1, 64, 5, 64 }, 64, 2, new int[] { 1, 5 })]
+        [TestCase(new int[] { 1, 41, 5, 3, 41 }, 41, 2, new int[] { 1, 5, 3 })]
+        [TestCase(new int[] { 1, 41, 5, 3, 1 }, 1, 2, new int[] { 41, 5, 3 })]
+        [TestCase(new int[] { 0, -1, 0, 3 }, 0, 2, new int[] { -1, 3 })]
+        public void RemoveAllByValueTest(int[] actualArray, int value, int count, int[] expectedArray)
         {
             ArrayList actual = new ArrayList(actualArray);
             ArrayList expected = new ArrayList(expectedArray);
-            int b = actual.RemoveAllByValue(value);
-            Assert.AreEqual(actual, expected);
+            int actualCount = actual.RemoveAllByValue(value);
+            Assert.AreEqual(count, actualCount);
+            Assert.AreEqual(expected, actual);
         }
         [TestCase(new int[] { 1, 7, 3, 8, 3, 4 }, new int[] { 1, 3, 3, 4, 7, 8 })]
         [TestCase(new int[] { 1, 64, 5, 63 }, new int[] { 1, 5, 63, 64 })]

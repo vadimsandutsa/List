@@ -388,18 +388,18 @@ namespace List
         public int RemoveAllByValue(int value)
         {
             int count = 0;
-            for (int i = Length; i > 0; i--)
+            for (int i = Length - 1; i >= 0; i--)
             {
                 if (_array[i] == value)
                 {
-                    for (int j = i; j < Length; j++)
+                    count++;
+                    for (int j = i; j < Length - 1; j++)
                     {
                         _array[j] = _array[j + 1];
                     }
-                    count++;
+                    Length--;
                 }
             }
-            Length -= count;
             if (Length < _array.Length / 2 - 1 && Length > 1)
             {
                 DownSize();
