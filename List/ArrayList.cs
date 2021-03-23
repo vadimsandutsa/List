@@ -86,7 +86,7 @@ namespace List
 
             Length++;
         }
-        public void AddAtIndex(int value, int index)
+        public void AddByIndex(int value, int index)
         {
             if (Length >= _array.Length)
             {
@@ -106,7 +106,7 @@ namespace List
 
             Length++;
         }
-        public void AddArrayListAtTheEnd(ArrayList arrList)
+        public void AddArrayListToTheEnd(ArrayList arrList)
         {
             int[] tmpArray = new int[(_array.Length + arrList._array.Length)];
             for(int i = 0; i < Length; i++)
@@ -122,7 +122,7 @@ namespace List
             _array = tmpArray;
             UpSize();
         }
-        public void AddArrayListAtTheBegining(ArrayList arrList)
+        public void AddArrayListToTheBegining(ArrayList arrList)
         {
             int[] tmpArray = new int[(_array.Length + arrList._array.Length)];
             for (int i = 0; i < arrList.Length; i++)
@@ -165,7 +165,7 @@ namespace List
         }
         public void AddArrayListByIndex2(ArrayList list, int index)
         {
-            if (index >= Length + 1 || index < 0)
+            if (index > Length || index < 0)
             {
                 throw new IndexOutOfRangeException();
             }
@@ -182,7 +182,7 @@ namespace List
             }
             Length = newLength;
         }
-        public void RemoveLast()
+        public void Remove()
         {
             Length--;
             if (Length < _array.Length / 2 - 1 && Length > 0)
@@ -220,7 +220,7 @@ namespace List
                 DownSize();
             }
         }
-        public void RemoveLastN(int numberOfElements)
+        public void RemoveElements(int numberOfElements)
         {
             if (numberOfElements > Length || numberOfElements < 0)
             {
@@ -233,7 +233,7 @@ namespace List
                 DownSize();
             }
         }
-        public void RemoveFirstN(int numberOfElements)
+        public void RemoveFirstElements(int numberOfElements)
         {
             if (Length < numberOfElements || numberOfElements < 0)
             {
@@ -271,7 +271,7 @@ namespace List
                 DownSize();
             }
         }
-        public int GetValueAtIndex(int index)
+        public int GetValueByIndex(int index)
         {
             if (index < 0 || index > Length)
             {
@@ -291,7 +291,7 @@ namespace List
             }
             return index;
         }
-        public void SetValueAtIndex(int value, int index)
+        public void SetValueByIndex(int value, int index)
         {
             if (index < 0 || index >= Length)
             {
