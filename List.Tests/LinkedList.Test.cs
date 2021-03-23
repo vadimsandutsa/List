@@ -113,6 +113,7 @@ namespace List.Tests
         [TestCase(new int[] { 1, 2, 3 }, 2, new int[] { 1, 2 })]
         [TestCase(new int[] { 44, 55, 0, 66 }, 0, new int[] { 55, 0, 66 })]
         [TestCase(new int[] { 4, 5, 6 }, 1, new int[] { 4, 6 })]
+        [TestCase(new int[] { 4, 5 }, 1, new int[] { 4 })]
         public void RemoveByIndexTest(int[] actualArray, int index, int[] expectedArray)
         {
             LinkedList actual = new LinkedList(actualArray);
@@ -131,6 +132,7 @@ namespace List.Tests
         [TestCase(new int[] { 44, 55, 0, 66 }, 2, new int[] { 44, 55 })]
         [TestCase(new int[] { 4, 5, 6, 7, 8, 9, 123123, 5432, 9 }, 6, new int[] { 4, 5, 6 })]
         [TestCase(new int[] { 1, 2 }, 1, new int[] { 1 })]
+        [TestCase(new int[] { 44, 55, 0, 66 }, 4, new int[] {})]
         [TestCase(new int[] { 1}, 1, new int[] {})]
         public void RemoveElementsTest(int[] actualArray, int numberOfElements, int[] expectedArray)
         {
@@ -150,6 +152,7 @@ namespace List.Tests
         [TestCase(new int[] { 44, 55, 0, 66 }, 2, new int[] { 0, 66 })]
         [TestCase(new int[] { 4, 5, 6, 7, 8, 9, 123123, 5432, 9 }, 6, new int[] { 123123, 5432, 9 })]
         [TestCase(new int[] { 1, 2 }, 1, new int[] { 2 })]
+        [TestCase(new int[] { 44, 55, 0, 66 }, 4, new int[] {})]
         [TestCase(new int[] { 1 }, 1, new int[] { })]
         public void RemoveFirstElements(int[] actualArray, int numberOfElements, int[] expectedArray)
         {
@@ -168,10 +171,11 @@ namespace List.Tests
         [TestCase(new int[] { 1, 2, 3 }, 1, 1, new int[] { 1, 3 })]
         [TestCase(new int[] { 44, 55, 0, 66 }, 2, 2, new int[] { 44, 55 })]
         [TestCase(new int[] { 4, 5, 6, 7, 8, 9, 123123, 5432, 9 }, 4, 2, new int[] { 4, 5, 123123, 5432, 9 })]
+        [TestCase(new int[] { 4, 5, 6, 7, 8, 9, 123123, 5432, 9 }, 9, 0, new int[] {})]
         public void RemoveElementsByIndexTest(int[] actualArray, int numberOfElements, int index, int[] expectedArray)
         {
-            ArrayList actual = new ArrayList(actualArray);
-            ArrayList expected = new ArrayList(expectedArray);
+            LinkedList actual = new LinkedList(actualArray);
+            LinkedList expected = new LinkedList(expectedArray);
             actual.RemoveElementsByIndex(numberOfElements, index);
             Assert.AreEqual(expected, actual);
         }
@@ -179,14 +183,14 @@ namespace List.Tests
         [TestCase(new int[] { 44, 55, 0, 66 }, 2, 1234)]
         public void RemoveElementsByIndex_IndexOutOfRange_IndexOutOfRangeExpection(int[] actualArray, int numberOfElements, int index)
         {
-            ArrayList actual = new ArrayList(actualArray);
+            LinkedList actual = new LinkedList(actualArray);
             Assert.Throws<IndexOutOfRangeException>(() => actual.RemoveElementsByIndex(numberOfElements, index));
         }
         [TestCase(new int[] { 1, 2, 3 }, 11, 1)]
         [TestCase(new int[] { 44, 55, 0, 66 }, -1, 2)]
         public void RemoveElementsByIndex_NumberOfElementsGreaterThenLengthOrLessThenZero_IndexOutOfRangeExpection(int[] actualArray, int numberOfElements, int index)
         {
-            ArrayList actual = new ArrayList(actualArray);
+            LinkedList actual = new LinkedList(actualArray);
             Assert.Throws<IndexOutOfRangeException>(() => actual.RemoveElementsByIndex(numberOfElements, index));
         }
         [TestCase(new int[] { 1, 3, 5, 64 }, 2, 5)]

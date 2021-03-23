@@ -90,6 +90,19 @@ namespace List
                 _tail = null;
             }
         }
+        public Node GetNodeByIndex(int index)
+        {
+            if (index < 0 || index > Length)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            Node current = _root;
+            for (int i = 0; i < index; i++)
+            {
+                current = current.Next;
+            }
+            return current;
+        }
         public void Add(int value)
         {
             if (Length != 0)
@@ -118,59 +131,38 @@ namespace List
             }
             if (index != 0 && index != Length)
             {
-                Node current = _root;
-                for (int i = 1; i < index; i++)
-                {
-                    current = current.Next;
-                }
+                Node current = GetNodeByIndex(index - 1);
                 Node tmp = new Node(value);
                 tmp.Next = current.Next;
                 current.Next = tmp;
                 Length++;
             }
-            if (index == 0)
+            else
             {
-                AddToBeginning(value);
+                if (index == 0)
+                {
+                    AddToBeginning(value);
+                }
+                if (index == Length)
+                {
+                    Add(value);
+                }
             }
-            if (index == Length)
-            {
-                Add(value);
-            }
-        }
-        public void AddByIndex2(int value, int index)
-        {
-            if(index < 0 || index > Length)
-            {
-                throw new IndexOutOfRangeException();
-            }
-            if (index != 0 && index != Length)
-            {
-                Node newNode = new Node(value);
-                newNode.Next = GetNodeByIndex(index);
-                GetNodeByIndex(index - 1).Next = newNode;
-                Length++;
-            }
-            if (index == 0)
-            {
-                AddToBeginning(value);
-            }
-            if (index == Length)
-            {
-                Add(value);
-            } 
         }
         public void AddLinkedList(LinkedList linkedList)
         {
             //создавать новые ноды с копированием значения value
-            _tail.Next = linkedList._root;
-            _tail = linkedList._tail;
-            Length += linkedList.Length;
+            for(int i = 0; i < linkedList.Length; i++)
+            {
+                Add(linkedList[i]);
+            }
         }
         public void AddLinkedListToTheBegining(LinkedList linkedList)
         {
-            linkedList._tail.Next = _root;
-            _root = linkedList._root;
-            Length += linkedList.Length;
+            for(int i = linkedList.Length - 1; i >= 0; i--)
+            {
+                AddToBeginning(linkedList[i]);
+            }
         }
         public void AddLinkedListByIndex(LinkedList linkedList, int index)
         {
@@ -180,17 +172,21 @@ namespace List
             }
             if (index != 0 && index != Length)
             {
-                linkedList._tail.Next = GetNodeByIndex(index);
-                GetNodeByIndex(index - 1).Next = linkedList._root;
-                Length += linkedList.Length;
+                for (int i = linkedList.Length - 1; i >= 0; i--)
+                {
+                    AddByIndex(linkedList[i], index);
+                }
             }
-            if (index == 0)
+            else
             {
-                AddLinkedListToTheBegining(linkedList);
-            }
-            if (index == Length)
-            {
-                AddLinkedList(linkedList);
+                if (index == 0)
+                {
+                    AddLinkedListToTheBegining(linkedList);
+                }
+                if (index == Length)
+                {
+                    AddLinkedList(linkedList);
+                }
             }
         }
         public void Remove()
@@ -229,11 +225,11 @@ namespace List
             {
                 RemoveFirst();
             }
-            if(index == Length)
+            else if(index == Length)
             {
                 Remove();
             }
-            if (index != 0 && index != Length)
+            else if (index != 0 && index != Length)
             {
                 Node current = _root;
 
@@ -252,14 +248,17 @@ namespace List
             {
                 throw new IndexOutOfRangeException();
             }
-            if (Length != 1)
+            if (Length != 1 && Length != numberOfElements)
             {
                 GetNodeByIndex(Length - 1 - numberOfElements).Next = null;
                 Length -= numberOfElements;
             }
             else
             {
-                Empty();
+                if (Length == numberOfElements)
+                {
+                    Empty();
+                }
             }
         }
         public void RemoveFirstElements(int numberOfElements)
@@ -271,6 +270,32 @@ namespace List
             Node current = GetNodeByIndex(numberOfElements);
             _root = current;
             Length -= numberOfElements;
+        }
+        public void RemoveElementsByIndex(int numberOfElements, int index)
+        {
+            if (numberOfElements > Length || numberOfElements < 0)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            if (index < 0 || index > Length)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            if (index != 0)
+            {
+                Node current = GetNodeByIndex(index - 1);
+                Node tmp = current;
+                for(int i = 0; i <= numberOfElements; i ++)
+                {
+                    current = current.Next;
+                }
+                tmp.Next = current;
+                Length = Length - numberOfElements;
+            }
+            else
+            {
+                RemoveFirstElements(numberOfElements);
+            }
         }
         public override string ToString()
         {
@@ -323,19 +348,6 @@ namespace List
         public override int GetHashCode()
         {
             return base.GetHashCode();
-        }
-        private Node GetNodeByIndex(int index)
-        {
-            if(index < 0 || index > Length)
-            {
-                throw new IndexOutOfRangeException();
-            }
-            Node current = _root;
-            for (int i = 0; i < index; i++)
-            {
-                current = current.Next;
-            }
-            return current;
         }
         private void AddFirstInEmptyLinkedList(int value)
         {
