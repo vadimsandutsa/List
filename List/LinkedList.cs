@@ -45,43 +45,21 @@ namespace List
         {
             AddFirstInEmptyLinkedList(value);
         }
-        //public LinkedList(int[] values)
-        //{
-        //    if(values is null)
-        //    {
-        //        throw new NullReferenceException();
-        //    }
-        //    Length = values.Length;
-        //    if(values.Length != 0)
-        //    {
-        //        _root = new Node(values[0]);
-        //        _tail = _root;
-        //        for(int i = 1; i<values.Length;i++)
-        //        {
-        //            _tail.Next = new Node(values[i]);
-        //            _tail = _tail.Next;
-        //        }
-        //    }
-        //    else
-        //    {
-        //        _root = null;
-        //        _tail = null;
-        //    }
-        //}
         public LinkedList(int[] values)
         {
             if (values is null)
             {
                 throw new NullReferenceException();
             }
+            Length = values.Length;
             if (values.Length != 0)
             {
-                Length = 1;
                 _root = new Node(values[0]);
                 _tail = _root;
                 for (int i = 1; i < values.Length; i++)
                 {
-                    Add(values[i]);
+                    _tail.Next = new Node(values[i]);
+                    _tail = _tail.Next;
                 }
             }
             else
@@ -90,6 +68,28 @@ namespace List
                 _tail = null;
             }
         }
+        //public LinkedList(int[] values)
+        //{
+        //    if (values is null)
+        //    {
+        //        throw new NullReferenceException();
+        //    }
+        //    if (values.Length != 0)
+        //    {
+        //        Length = 1;
+        //        _root = new Node(values[0]);
+        //        _tail = _root;
+        //        for (int i = 1; i < values.Length; i++)
+        //        {
+        //            Add(values[i]);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        _root = null;
+        //        _tail = null;
+        //    }
+        //}
         public Node GetNodeByIndex(int index)
         {
             if (index < 0 || index > Length)
@@ -296,6 +296,80 @@ namespace List
             {
                 RemoveFirstElements(numberOfElements);
             }
+        }
+        public int GetValueByIndex(int index)
+        {
+            if (index < 0 || index > Length)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            Node current = GetNodeByIndex(index);
+            return current.Value;
+        }
+        public int GetIndexByValue(int value)
+        {
+            int index = -1;
+            Node current = _root;
+            for(int i = 0; i < Length; i++)
+            {
+                if(value == current.Value)
+                {
+                    index = i;
+                    break;
+                }
+                current = current.Next;  
+            }
+            return index;
+        }
+        public void SetValueByIndex(int value, int index)
+        {
+            if (index < 0 || index > Length)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            Node current = GetNodeByIndex(index);
+            current.Value = value;
+        }
+        public void Reverse()
+        {
+            Node prev = _root;
+            Node next = null;
+            _tail = _root;
+            while (prev != null)
+            {
+                Node tmp = prev.Next;
+                prev.Next = next;
+                next = prev;
+                prev = tmp;
+            }
+            _root = next;
+        }
+        public LinkedList Reverse2()
+        {
+            LinkedList newList = new LinkedList(new int[] {});
+            while (Length != 0)
+                newList.Add((Pop().Value));
+            return newList;
+        }
+        public Node Pop()
+        {
+            Node ret = _tail;
+            Length--;
+            if(Length > 1)
+            {
+                _tail = GetNodeByIndex(Length - 1);
+            }
+            else if(Length == 1)
+            {
+                _tail = _root;
+            }
+            else
+            {
+                _tail = null;
+                _root = null;
+                Length = 0;
+            }
+            return ret;
         }
         public override string ToString()
         {

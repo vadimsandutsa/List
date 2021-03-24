@@ -220,6 +220,7 @@ namespace List.Tests
         [TestCase(new int[] { 1, 3, 5, 64 }, 5, 2)]
         [TestCase(new int[] { 1, 3, 5, 64 }, 64, 3)]
         [TestCase(new int[] { 1, 41, 5, 64 }, 41, 1)]
+        [TestCase(new int[] { 1, 41, 5, 64 }, 421, -1)]
         public void GetIndexByValueTest(int[] actualArray, int value, int expected)
         {
             ArrayList actualArr = new ArrayList(actualArray);

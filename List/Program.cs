@@ -50,6 +50,9 @@ namespace List
             Console.WriteLine(linkedList[12]);
             linkedList2[2] = 555;
             Console.WriteLine(linkedList);
+            LinkedList linkedList3 = new LinkedList(new int[] { 1, 2, 3 });
+            linkedList3 = linkedList3.Reverse2();
+            Console.WriteLine(linkedList3);
             //Console.WriteLine(linkedList2.Equals(linkedList));
         }
     }

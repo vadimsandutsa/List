@@ -198,7 +198,7 @@ namespace List.Tests
         [TestCase(new int[] { 1, 41, 5, 64 }, 1, 41)]
         public void GetValueByIndexTest(int[] actualArray, int index, int expected)
         {
-            ArrayList actualArr = new ArrayList(actualArray);
+            LinkedList actualArr = new LinkedList(actualArray);
             int actual = actualArr.GetValueByIndex(index);
             Assert.AreEqual(expected, actual);
         }
@@ -206,15 +206,16 @@ namespace List.Tests
         [TestCase(new int[] { 1, 3, 5, 64 }, -3)]
         public void GetValueByIndex_WhenIndexOutOfRange_IndexOutOfRangeExpection(int[] actualArray, int index)
         {
-            ArrayList actualArr = new ArrayList(actualArray);
+            LinkedList actualArr = new LinkedList(actualArray);
             Assert.Throws<IndexOutOfRangeException>(() => actualArr.GetValueByIndex(index));
         }
         [TestCase(new int[] { 1, 3, 5, 64 }, 5, 2)]
         [TestCase(new int[] { 1, 3, 5, 64 }, 64, 3)]
         [TestCase(new int[] { 1, 41, 5, 64 }, 41, 1)]
+        [TestCase(new int[] { 1, 41, 5, 64 }, 421, -1)]
         public void GetIndexByValueTest(int[] actualArray, int value, int expected)
         {
-            ArrayList actualArr = new ArrayList(actualArray);
+            LinkedList actualArr = new LinkedList(actualArray);
             int actual = actualArr.GetIndexByValue(value);
             Assert.AreEqual(expected, actual);
         }
@@ -223,8 +224,8 @@ namespace List.Tests
         [TestCase(new int[] { 1, 41, 5, 64 }, 11, 0, new int[] { 11, 41, 5, 64 })]
         public void SetValueByIndexTest(int[] actualArray, int value, int index, int[] expectedArray)
         {
-            ArrayList actual = new ArrayList(actualArray);
-            ArrayList expected = new ArrayList(expectedArray);
+            LinkedList actual = new LinkedList(actualArray);
+            LinkedList expected = new LinkedList(expectedArray);
             actual.SetValueByIndex(value, index);
             Assert.AreEqual(actual, expected);
         }
@@ -232,7 +233,7 @@ namespace List.Tests
         [TestCase(new int[] { 1, 3, 5, 64 }, 1, -3)]
         public void SetValueByIndex_WhenIndexOutOfRange_IndexOutOfRangeExpection(int[] actualArray, int value, int index)
         {
-            ArrayList actualArr = new ArrayList(actualArray);
+            LinkedList actualArr = new LinkedList(actualArray);
             Assert.Throws<IndexOutOfRangeException>(() => actualArr.SetValueByIndex(value, index));
         }
         [TestCase(new int[] { 1, 3, 5, 64 }, new int[] { 64, 5, 3, 1 })]
@@ -240,8 +241,8 @@ namespace List.Tests
         [TestCase(new int[] { 32, 31, 43 }, new int[] { 43, 31, 32 })]
         public void ReverseTest(int[] actualArray, int[] expectedArray)
         {
-            ArrayList actual = new ArrayList(actualArray);
-            ArrayList expected = new ArrayList(expectedArray);
+            LinkedList actual = new LinkedList(actualArray);
+            LinkedList expected = new LinkedList(expectedArray);
             actual.Reverse();
             Assert.AreEqual(actual, expected);
         }
