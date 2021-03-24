@@ -256,7 +256,7 @@ namespace List.Tests
         }
         [TestCase(new int[] { 1, 3, 5, 64 }, 64)]
         [TestCase(new int[] { 2, 3, 4, 5 }, 5)]
-        [TestCase(new int[] { 32, 31, 43 }, 43)]
+        [TestCase(new int[] { 44, 31, 43 }, 44)]
         public void GetMaxValueTest(int[] actualArray,  int expected)
         {
             ArrayList actualArr = new ArrayList(actualArray);
@@ -293,12 +293,12 @@ namespace List.Tests
         [TestCase(new int[] { 1, 3, 5, 64 }, 1, 0, new int[] { 3, 5, 64 })]
         [TestCase(new int[] { 1, 3, 5, 64 }, 5, 2, new int[] { 1, 3, 64 })]
         [TestCase(new int[] { 1, 41, 5, 64 }, 64, 3, new int[] { 1, 41, 5 })]
-        public void RemoveFirstByValueTest(int[] actualArray, int value, int count, int[] expectedArray)
+        public void RemoveFirstByValueTest(int[] actualArray, int value, int index, int[] expectedArray)
         {
             ArrayList actual = new ArrayList(actualArray);
             ArrayList expected = new ArrayList(expectedArray);
-            int actualcount = actual.RemoveFirstByValue(value);
-            Assert.AreEqual(actualcount, count);
+            int actualIndex = actual.RemoveFirstByValue(value);
+            Assert.AreEqual(actualIndex, index);
             Assert.AreEqual(actual, expected);
         }
         [TestCase(new int[] { 1, 2, 3, 3, 3, 4 }, 3, 3, new int[] { 1, 2, 4 })]
@@ -306,6 +306,7 @@ namespace List.Tests
         [TestCase(new int[] { 1, 41, 5, 3, 41 }, 41, 2, new int[] { 1, 5, 3 })]
         [TestCase(new int[] { 1, 41, 5, 3, 1 }, 1, 2, new int[] { 41, 5, 3 })]
         [TestCase(new int[] { 0, -1, 0, 3 }, 0, 2, new int[] { -1, 3 })]
+        [TestCase(new int[] { 1, 41, 5, 3, 1 }, 111, 0, new int[] { 1, 41, 5, 3, 1 })]
         public void RemoveAllByValueTest(int[] actualArray, int value, int count, int[] expectedArray)
         {
             ArrayList actual = new ArrayList(actualArray);

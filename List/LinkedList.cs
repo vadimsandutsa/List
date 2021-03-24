@@ -303,8 +303,7 @@ namespace List
             {
                 throw new IndexOutOfRangeException();
             }
-            Node current = GetNodeByIndex(index);
-            return current.Value;
+            return GetNodeByIndex(index).Value;
         }
         public int GetIndexByValue(int value)
         {
@@ -371,6 +370,153 @@ namespace List
             }
             return ret;
         }
+        public int GetMaxValue()
+        {
+            int max = _root.Value;
+            Node tmp = _root.Next;
+            for(int i = 1; i < Length; i++)
+            {
+                if(max < tmp.Value)
+                {
+                    max = tmp.Value;
+                }
+                tmp = tmp.Next;
+            }
+            return max;
+        }
+        public int GetMinValue()
+        {
+            int min = _root.Value;
+            Node tmp = _root.Next;
+            for (int i = 1; i < Length; i++)
+            {
+                if (min > tmp.Value)
+                {
+                    min = tmp.Value;
+                }
+                tmp = tmp.Next;
+            }
+            return min;
+        }
+        public int GetIndexOfMaxValue()
+        {
+            int max = _root.Value;
+            int index = 0;
+            Node tmp = _root.Next;
+            for (int i = 1; i < Length; i++)
+            {
+                if (max < tmp.Value)
+                {
+                    max = tmp.Value;
+                    index = i;
+                }
+                tmp = tmp.Next;
+            }
+            return index;
+        }
+        public int GetIndexOfMinValue()
+        {
+            int min = _root.Value;
+            int index = 0;
+            Node tmp = _root.Next;
+            for (int i = 1; i < Length; i++)
+            {
+                if (min > tmp.Value)
+                {
+                    min = tmp.Value;
+                    index = i;
+                }
+                tmp = tmp.Next;
+            }
+            return index;
+        }
+        public int RemoveFirstByValue(int value)
+        {
+            int index = -1;
+            Node current = _root;
+            if(value == _root.Value)
+            {
+                index = 0;
+                _root = _root.Next;
+                Length--;
+                return index;
+            }
+            for (int i = 0; i < Length-1; i++)
+            {
+                if (value == current.Next.Value)
+                {
+                    current.Next = current.Next.Next;
+                    index = i + 1;
+                    Length--;
+                    break;
+                }
+                current = current.Next;
+            }
+            
+            return index;
+        }
+        //********************************************************
+        public int RemoveAllByValue(int value, int count = 0)
+        {
+            Node current = _root;
+            if (value == _root.Value)
+            {
+                if (!(current.Next is null))
+                {
+                    while (value == current.Next.Value)
+                    {
+                        if (!(current.Next is null))
+                        {
+                            current = current.Next;
+                            count++;
+                            Length--;
+                        }
+                    }
+                }
+                count++;
+                _root = current.Next;
+                Length--;
+                current = _root;
+            }
+            for (int i = 0; i < Length - 1; i++)
+            {
+                if (value == current.Next.Value)
+                {
+                    Node tmp = current.Next;
+                    if (!(tmp.Next is null))
+                    { 
+                        while (value == tmp.Next.Value)
+                        {
+                            if(!(tmp.Next is null))
+                            {
+                                tmp = tmp.Next;
+                                count++;
+                                Length--;
+                            }    
+                        }
+                    }
+                    current.Next = tmp.Next;
+                    count++;
+                    Length--;
+                }
+                current = current.Next;
+            }
+            return count;
+        }
+        //********************************************************
+        public int RemoveAllByValue2(int value)
+        {
+            int count = 0;
+            int index = GetIndexByValue(value);
+            while (index != -1)
+            {
+                RemoveByIndex(index);
+                index = GetIndexByValue(value);
+                count++;
+            }
+            return count;
+        }
+        //********************************************
         public override string ToString()
         {
             if (Length != 0)
@@ -388,6 +534,30 @@ namespace List
             {
                 return String.Empty;
             }
+        }
+        public LinkedList SortUp()
+        {
+            LinkedList newList = new LinkedList(new int[] { });
+            int l = Length;
+            while (l > 0)
+            {
+                newList.AddToBeginning((GetMaxValue()));
+                RemoveByIndex(GetIndexOfMaxValue());
+                l--;
+            }
+            return newList;
+        }
+        public LinkedList SortDown()
+        {
+            LinkedList newList = new LinkedList(new int[] { });
+            int l = Length;
+            while (l > 0)
+            {
+                newList.AddToBeginning((GetMinValue()));
+                RemoveByIndex(GetIndexOfMinValue());
+                l--;
+            }
+            return newList;
         }
         public override bool Equals(object obj)
         {

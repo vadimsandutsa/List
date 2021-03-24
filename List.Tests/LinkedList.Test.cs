@@ -246,12 +246,22 @@ namespace List.Tests
             actual.Reverse();
             Assert.AreEqual(actual, expected);
         }
+        [TestCase(new int[] { 1, 3, 5, 64 }, new int[] { 64, 5, 3, 1 })]
+        [TestCase(new int[] { 2, 3, 4, 5 }, new int[] { 5, 4, 3, 2 })]
+        [TestCase(new int[] { 32, 31, 43 }, new int[] { 43, 31, 32 })]
+        public void ReverseTest2(int[] actualArray, int[] expectedArray)
+        {
+            LinkedList actual = new LinkedList(actualArray);
+            LinkedList expected = new LinkedList(expectedArray);
+            actual = actual.Reverse2();
+            Assert.AreEqual(actual, expected);
+        }
         [TestCase(new int[] { 1, 3, 5, 64 }, 64)]
         [TestCase(new int[] { 2, 3, 4, 5 }, 5)]
-        [TestCase(new int[] { 32, 31, 43 }, 43)]
+        [TestCase(new int[] { 44, 31, 43 }, 44)]
         public void GetMaxValueTest(int[] actualArray, int expected)
         {
-            ArrayList actualArr = new ArrayList(actualArray);
+            LinkedList actualArr = new LinkedList(actualArray);
             int actual = actualArr.GetMaxValue();
             Assert.AreEqual(actual, expected);
         }
@@ -260,7 +270,7 @@ namespace List.Tests
         [TestCase(new int[] { 32, 31, 43 }, 31)]
         public void GetMinValueTest(int[] actualArray, int expected)
         {
-            ArrayList actualArr = new ArrayList(actualArray);
+            LinkedList actualArr = new LinkedList(actualArray);
             int actual = actualArr.GetMinValue();
             Assert.AreEqual(actual, expected);
         }
@@ -269,7 +279,7 @@ namespace List.Tests
         [TestCase(new int[] { 32, 31, 43 }, 2)]
         public void GetIndexOfMaxValueTest(int[] actualArray, int expected)
         {
-            ArrayList actualArr = new ArrayList(actualArray);
+            LinkedList actualArr = new LinkedList(actualArray);
             int actual = actualArr.GetIndexOfMaxValue();
             Assert.AreEqual(actual, expected);
         }
@@ -278,31 +288,48 @@ namespace List.Tests
         [TestCase(new int[] { 32, 31, 43 }, 1)]
         public void GetIndexOfMinValueTest(int[] actualArray, int expected)
         {
-            ArrayList actualArr = new ArrayList(actualArray);
+            LinkedList actualArr = new LinkedList(actualArray);
             int actual = actualArr.GetIndexOfMinValue();
             Assert.AreEqual(actual, expected);
         }
         [TestCase(new int[] { 1, 3, 5, 64 }, 1, 0, new int[] { 3, 5, 64 })]
         [TestCase(new int[] { 1, 3, 5, 64 }, 5, 2, new int[] { 1, 3, 64 })]
         [TestCase(new int[] { 1, 41, 5, 64 }, 64, 3, new int[] { 1, 41, 5 })]
-        public void RemoveFirstByValueTest(int[] actualArray, int value, int count, int[] expectedArray)
+        public void RemoveFirstByValueTest(int[] actualArray, int value, int index, int[] expectedArray)
         {
-            ArrayList actual = new ArrayList(actualArray);
-            ArrayList expected = new ArrayList(expectedArray);
-            int actualcount = actual.RemoveFirstByValue(value);
-            Assert.AreEqual(actualcount, count);
+            LinkedList actual = new LinkedList(actualArray);
+            LinkedList expected = new LinkedList(expectedArray);
+            int actualIndex = actual.RemoveFirstByValue(value);
+            Assert.AreEqual(actualIndex, index);
             Assert.AreEqual(actual, expected);
         }
-        [TestCase(new int[] { 1, 2, 3, 3, 3, 4 }, 3, 3, new int[] { 1, 2, 4 })]
+        [TestCase(new int[] { 1, 2, 3, 3, 4, 3 }, 3, 3, new int[] { 1, 2, 4 })]
         [TestCase(new int[] { 1, 64, 5, 64 }, 64, 2, new int[] { 1, 5 })]
         [TestCase(new int[] { 1, 41, 5, 3, 41 }, 41, 2, new int[] { 1, 5, 3 })]
-        [TestCase(new int[] { 1, 41, 5, 3, 1 }, 1, 2, new int[] { 41, 5, 3 })]
+        [TestCase(new int[] { 41, 41, 5, 3, 1 }, 1, 1, new int[] { 41, 41, 5, 3 })]
         [TestCase(new int[] { 0, -1, 0, 3 }, 0, 2, new int[] { -1, 3 })]
+        [TestCase(new int[] { 1, 41, 5, 3, 1 }, 111, 0, new int[] { 1, 41, 5, 3, 1 })]
+        [TestCase(new int[] { 111, 111, 111, 3, 1 }, 111, 3, new int[] { 3, 1 })]
         public void RemoveAllByValueTest(int[] actualArray, int value, int count, int[] expectedArray)
         {
-            ArrayList actual = new ArrayList(actualArray);
-            ArrayList expected = new ArrayList(expectedArray);
+            LinkedList actual = new LinkedList(actualArray);
+            LinkedList expected = new LinkedList(expectedArray);
             int actualCount = actual.RemoveAllByValue(value);
+            Assert.AreEqual(expected, actual);
+            Assert.AreEqual(count, actualCount);
+        }
+        [TestCase(new int[] { 1, 2, 3, 3, 4, 3 }, 3, 3, new int[] { 1, 2, 4 })]
+        [TestCase(new int[] { 1, 64, 5, 64 }, 64, 2, new int[] { 1, 5 })]
+        [TestCase(new int[] { 1, 41, 5, 3, 41 }, 41, 2, new int[] { 1, 5, 3 })]
+        [TestCase(new int[] { 41, 41, 5, 3, 1 }, 1, 1, new int[] {41, 41, 5, 3 })]
+        [TestCase(new int[] { 0, -1, 0, 3 }, 0, 2, new int[] { -1, 3 })]
+        [TestCase(new int[] { 1, 41, 5, 3, 1 }, 111, 0, new int[] { 1, 41, 5, 3, 1 })]
+        [TestCase(new int[] { 111, 111, 111, 3, 1 }, 111, 3, new int[] { 3, 1 })]
+        public void RemoveAllByValueTest2(int[] actualArray, int value, int count, int[] expectedArray)
+        {
+            LinkedList actual = new LinkedList(actualArray);
+            LinkedList expected = new LinkedList(expectedArray);
+            int actualCount = actual.RemoveAllByValue2(value);
             Assert.AreEqual(count, actualCount);
             Assert.AreEqual(expected, actual);
         }
@@ -311,9 +338,9 @@ namespace List.Tests
         [TestCase(new int[] { 1, 42, 5, 3, 41 }, new int[] { 1, 3, 5, 41, 42 })]
         public void SortUpTest(int[] actualArray, int[] expectedArray)
         {
-            ArrayList actual = new ArrayList(actualArray);
-            ArrayList expected = new ArrayList(expectedArray);
-            actual.SortUp();
+            LinkedList actual = new LinkedList(actualArray);
+            LinkedList expected = new LinkedList(expectedArray);
+            actual = actual.SortUp();
             Assert.AreEqual(actual, expected);
         }
         [TestCase(new int[] { 1, 7, 3, 8, 3, 4 }, new int[] { 8, 7, 4, 3, 3, 1 })]
@@ -321,9 +348,9 @@ namespace List.Tests
         [TestCase(new int[] { 1, 42, 5, 3, 41 }, new int[] { 42, 41, 5, 3, 1 })]
         public void SortDownTest(int[] actualArray, int[] expectedArray)
         {
-            ArrayList actual = new ArrayList(actualArray);
-            ArrayList expected = new ArrayList(expectedArray);
-            actual.SortDown();
+            LinkedList actual = new LinkedList(actualArray);
+            LinkedList expected = new LinkedList(expectedArray);
+            actual = actual.SortDown();
             Assert.AreEqual(actual, expected);
         }
     }

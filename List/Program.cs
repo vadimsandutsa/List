@@ -52,7 +52,10 @@ namespace List
             Console.WriteLine(linkedList);
             LinkedList linkedList3 = new LinkedList(new int[] { 1, 2, 3 });
             linkedList3 = linkedList3.Reverse2();
-            Console.WriteLine(linkedList3);
+            LinkedList l = new LinkedList(new int[] { 1, 2, 3, 3, 4, 3 });
+            Console.WriteLine(l);
+            l.RemoveAllByValue(3);
+            Console.WriteLine(l);
             //Console.WriteLine(linkedList2.Equals(linkedList));
         }
     }
