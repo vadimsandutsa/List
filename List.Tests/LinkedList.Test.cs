@@ -46,6 +46,7 @@ namespace List.Tests
         [TestCase(new int[] { 4, 5, 6 }, new int[] { 1, 2, 3 }, new int[] { 4, 5, 6, 1, 2, 3 })]
         [TestCase(new int[] { 44, 55, 0, 66 }, new int[] { 1, 2, 3 }, new int[] { 44, 55, 0, 66, 1, 2, 3 })]
         [TestCase(new int[] { 4, 5, 6 }, new int[] { 6, 6, 53 }, new int[] { 4, 5, 6, 6, 6, 53 })]
+        [TestCase(new int[] { 4, 5, 6 }, new int[] { }, new int[] { 4, 5, 6})]
         public void AddLinkedListTest(int[] actualArray, int[] addingArray, int[] expectedArray)
         {
             LinkedList actual = new LinkedList(actualArray);
@@ -243,7 +244,7 @@ namespace List.Tests
         {
             LinkedList actual = new LinkedList(actualArray);
             LinkedList expected = new LinkedList(expectedArray);
-            actual.Reverse();
+            actual.Reverse3();
             Assert.AreEqual(actual, expected);
         }
         [TestCase(new int[] { 1, 3, 5, 64 }, new int[] { 64, 5, 3, 1 })]
@@ -332,6 +333,26 @@ namespace List.Tests
             int actualCount = actual.RemoveAllByValue2(value);
             Assert.AreEqual(count, actualCount);
             Assert.AreEqual(expected, actual);
+        }
+        [TestCase(new int[] { 1, 7, 3, 8, 3, 4 }, new int[] { 1, 3, 3, 4, 7, 8 })]
+        [TestCase(new int[] { 1, 64, 5, 63 }, new int[] { 1, 5, 63, 64 })]
+        [TestCase(new int[] { 1, 42, 5, 3, 41 }, new int[] { 1, 3, 5, 41, 42 })]
+        public void AscendingSortTest(int[] actualArray, int[] expectedArray)
+        {
+            LinkedList actual = new LinkedList(actualArray);
+            LinkedList expected = new LinkedList(expectedArray);
+            actual.AscendingSort();
+            Assert.AreEqual(actual, expected);
+        }
+        [TestCase(new int[] { 1, 7, 3, 8, 3, 4 }, new int[] { 8, 7, 4, 3, 3, 1 })]
+        [TestCase(new int[] { 1, 64, 5, 63 }, new int[] { 64, 63, 5, 1 })]
+        [TestCase(new int[] { 1, 42, 5, 3, 41 }, new int[] { 42, 41, 5, 3, 1 })]
+        public void DescendingSortTest(int[] actualArray, int[] expectedArray)
+        {
+            LinkedList actual = new LinkedList(actualArray);
+            LinkedList expected = new LinkedList(expectedArray);
+            actual.DescendingSort();
+            Assert.AreEqual(actual, expected);
         }
         [TestCase(new int[] { 1, 7, 3, 8, 3, 4 }, new int[] { 1, 3, 3, 4, 7, 8 })]
         [TestCase(new int[] { 1, 64, 5, 63 }, new int[] { 1, 5, 63, 64 })]

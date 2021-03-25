@@ -5,6 +5,7 @@ using System.Text;
 //выбором и вставкой работает быстро mergesort быстрее
 //пузырек и прямого выбора медленно
 //следить при изменении длины, чтобы рут и тэйл имели ссылки на что-то
+//мерджсофт круто для линкед круто, для эррэй нет, бинари тоже
 namespace List
 {
     public class LinkedList
@@ -343,6 +344,19 @@ namespace List
             }
             _root = next;
         }
+        public void Reverse3()
+        {
+            Node next = null;
+            _tail = _root;
+            while (_root != null)
+            {
+                Node tmp = _root.Next;
+                _root.Next = next;
+                next = _root;
+                _root = tmp;
+            }
+            _root = next;
+        }
         public LinkedList Reverse2()
         {
             LinkedList newList = new LinkedList(new int[] {});
@@ -533,6 +547,46 @@ namespace List
             else
             {
                 return String.Empty;
+            }
+        }
+        public void AscendingSort()
+        {
+            Node iNode = _root;
+            int tmp;
+            for (int i = 0; i < Length; i++)
+            {
+                Node jNode = iNode.Next;
+                for (int j = i + 1; j < Length; j++)
+                {
+                    if (iNode.Value > jNode.Value)
+                    {
+                        tmp = iNode.Value;
+                        iNode.Value = jNode.Value;
+                        jNode.Value = tmp;
+                    }
+                    jNode = jNode.Next;
+                }
+                iNode = iNode.Next;
+            }
+        }
+        public void DescendingSort()
+        {
+            Node iNode = _root;
+            int tmp;
+            for (int i = 0; i < Length; i++)
+            {
+                Node jNode = iNode.Next;
+                for (int j = i + 1; j < Length; j++)
+                {
+                    if (iNode.Value < jNode.Value)
+                    {
+                        tmp = iNode.Value;
+                        iNode.Value = jNode.Value;
+                        jNode.Value = tmp;
+                    }
+                    jNode = jNode.Next;
+                }
+                iNode = iNode.Next;
             }
         }
         public LinkedList SortUp()

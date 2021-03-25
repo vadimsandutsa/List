@@ -10,9 +10,8 @@ namespace List
     //XCriticalSoftware
     public class ArrayList
     {
-        public int Length { get; private set; }
-
         private int[] _array;
+        public int Length { get; private set; }
 
         public int this[int index]
         {
