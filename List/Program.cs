@@ -57,6 +57,17 @@ namespace List
             l.RemoveAllByValue(3);
             Console.WriteLine(l);
             //Console.WriteLine(linkedList2.Equals(linkedList));
+            LinkedList l1 = new LinkedList(new int[] { 1, 2, 3, 4, 5 });
+            Console.WriteLine(l1);
+            l1.Reverse();
+            Console.WriteLine(l1);
+            DoubleLinkedList dl = new DoubleLinkedList(new int[] { 1, 2, 3, 4, 5});
+            Console.WriteLine(dl);
+            dl.Reverse();
+            for(int i = 0; i < dl.Length; i ++)
+            {
+                Console.Write(dl[i]);
+            }
         }
     }
 }

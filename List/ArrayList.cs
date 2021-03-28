@@ -333,17 +333,15 @@ namespace List
         }
         public int GetIndexOfMaxValue()
         {
-            int max = _array[0];
-            int maxIndex = 0;
-            for (int i = 1; i < Length; i++)
+            int max = 0;
+            for (int i = 0; i < Length; i++)
             {
-                if (_array[i] > max)
+                if (_array[i] > _array[max])
                 {
-                    max = _array[i];
-                    maxIndex = i;
+                    max = i;
                 }
             }
-            return maxIndex;
+            return max;
         }
         public int GetIndexOfMinValue()
         {
