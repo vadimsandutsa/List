@@ -346,7 +346,7 @@ namespace List.Tests
             Assert.AreEqual(actual, expected);
         }
         [TestCase(new int[] { 1, 7, 3, 8, 3, 4 }, new int[] { 8, 7, 4, 3, 3, 1 })]
-        [TestCase(new int[] { 1, 64, 5, 63 }, new int[] { 64, 63, 5, 1 })]
+        [TestCase(new int[] { 1, 64, 5, 63 }, new int[] { 64, 63, 5, 1 })] 
         [TestCase(new int[] { 1, 42, 5, 3, 41 }, new int[] { 42, 41, 5, 3, 1 })]
         [TestCase(new int[] { }, new int[] { })]
         public void DescendingSortTest(int[] actualArray, int[] expectedArray)

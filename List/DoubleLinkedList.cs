@@ -10,7 +10,7 @@ namespace List
 
         private Node _root;
         private Node _tail;
-        private Node _previous;
+        //private Node _previous;
 
         public int this[int index]
         {
@@ -28,14 +28,14 @@ namespace List
             Length = 0;
             _root = null;
             _tail = _root;
-            _previous = _tail;
+            //_previous = _tail;
         }
         public DoubleLinkedList(int value)
         {
             Length = 1;
             _root = new Node(value);
             _tail = _root;
-            _previous = _tail;
+            //_previous = _tail;
         }
         public DoubleLinkedList(int[] values)
         {
@@ -59,26 +59,56 @@ namespace List
                 _tail = null;
             }
         }
-        public Node GetNodeByIndex(int index)
+        //public Node GetNodeByIndex(int index)
+        //{
+        //    CheckExceptionIndex(index);
+        //    Node current = _root;
+        //    for (int i = 0; i < index; i++)
+        //    {
+        //        current = current.Next;
+        //    }
+        //    return current;
+        //}
+        private Node GetNodeByIndex(int index)
         {
-            CheckExceptionIndex(index);
-            Node current = _root;
-            for (int i = 0; i < index; i++)
+            if ((index < 0) || (index > Length))
             {
-                current = current.Next;
+                throw new IndexOutOfRangeException("Индекс вне множества.");
             }
-            return current;
+
+            Node root = _root;
+            Node tail = _tail;
+
+            if (index < Length / 2)
+            {
+                for (int i = 0; i < index; i++)
+                {
+                    root = root.Next;
+                }
+
+                return root;
+            }
+            else
+            {
+                for (int i = Length - 1; i >= index; i--)
+                {
+                    tail = tail.Previous;
+                }
+
+                return tail.Next; // добавил .Next
+            }
+
         }
         public void Add(int value)
         {
             if (Length != 0)
             {
                 Length++;
-                Node tmp = new Node(value);
-                tmp.Previous = _previous;
-                _tail.Next = tmp; ;
+                //tmp.Previous = _previous;
+                _tail.Next = new Node(value);
+                _tail.Next.Previous = _tail;
                 _tail = _tail.Next;
-                _previous = _tail;
+                //_previous = _tail;
             }
             else
             {
@@ -164,7 +194,6 @@ namespace List
                 Node current = GetNodeByIndex(Length - 2);
                 current.Next = null;
                 _tail = current;
-                _previous = _tail;
                 Length--;
             }
             else
@@ -300,7 +329,6 @@ namespace List
             Node temp = null;
             Node current = _root;
             _tail = current;
-            _previous = _tail;
             for (int i = 0; i < Length; i++)
             {
                 temp = current.Previous;
@@ -582,14 +610,12 @@ namespace List
             Length = 1;
             _root = new Node(value);
             _tail = _root;
-            _previous = _tail;
         }
         private void Empty()
         {
             Length = 0;
             _root = null;
             _tail = null;
-            _previous = null;
         }
         private void CheckExceptionIndex(int index)
         {
