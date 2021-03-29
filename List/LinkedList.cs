@@ -219,11 +219,11 @@ namespace List
             {
                 RemoveFirst();
             }
-            else if(index == Length)
+            else if(index == Length - 1)
             {
                 Remove();
             }
-            else if (index != 0 && index != Length)
+            else if (index != 0 && index != Length - 1)
             {
                 Node current = _root;
 
@@ -241,7 +241,8 @@ namespace List
             CheckNumberOfElements(numberOfElements);
             if (Length != 1 && Length != numberOfElements)
             {
-                GetNodeByIndex(Length - 1 - numberOfElements).Next = null;
+                _tail = GetNodeByIndex(Length - 1 - numberOfElements);
+                _tail.Next = null;
                 Length -= numberOfElements;
             }
             else
@@ -255,9 +256,16 @@ namespace List
         public void RemoveFirstElements(int numberOfElements)
         {
             CheckNumberOfElements(numberOfElements);
-            Node current = GetNodeByIndex(numberOfElements);
-            _root = current;
-            Length -= numberOfElements;
+            if (Length != numberOfElements)
+            {
+                Node current = GetNodeByIndex(numberOfElements);
+                _root = current;
+                Length -= numberOfElements;
+            }
+            else
+            {
+                Empty();
+            }
         }
         public void RemoveElementsByIndex(int numberOfElements, int index)
         {
@@ -276,6 +284,10 @@ namespace List
                     current = current.Next;
                 }
                 tmp.Next = current;
+                if (tmp.Next == null)
+                {
+                    _tail = tmp;
+                }
                 Length = Length - numberOfElements;
             }
             else if (index == Length - 1)
@@ -326,44 +338,26 @@ namespace List
             }
             _root = next;
         }
-        public void Reverse3()
-        {
-            Node next = null;
-            _tail = _root;
-            while (_root != null)
-            {
-                Node tmp = _root.Next;
-                _root.Next = next;
-                next = _root;
-                _root = tmp;
-            }
-            _root = next;
-        }
-        public LinkedList Reverse2()
-        {
-            LinkedList newList = new LinkedList(new int[] {});
-            while (Length != 0)
-                newList.Add((Pop().Value));
-            return newList;
-        }
-        public Node Pop()
-        {
-            Node ret = _tail;
-            Length--;
-            if(Length > 1)
-            {
-                _tail = GetNodeByIndex(Length - 1);
-            }
-            else if(Length == 1)
-            {
-                _tail = _root;
-            }
-            else
-            {
-                Empty();
-            }
-            return ret;
-        }
+        //public void Reverse3()
+        //{
+        //    Node next = null;
+        //    _tail = _root;
+        //    while (_root != null)
+        //    {
+        //        Node tmp = _root.Next;
+        //        _root.Next = next;
+        //        next = _root;
+        //        _root = tmp;
+        //    }
+        //    _root = next;
+        //}
+        //public LinkedList Reverse2()
+        //{
+        //    LinkedList newList = new LinkedList(new int[] {});
+        //    while (Length != 0)
+        //        newList.Add((Pop().Value));
+        //    return newList;
+        //}
         public int GetMaxValue()
         {
             int max = _root.Value;
@@ -428,25 +422,39 @@ namespace List
         {
             int index = -1;
             Node current = _root;
-            if(value == _root.Value)
+            if (value != _root.Value && value != _tail.Value)
+            {
+                for (int i = 0; i < Length - 1; i++)
+                {
+                    if (value == current.Next.Value)
+                    {
+                        current.Next = current.Next.Next;
+                        index = i + 1;
+                        Length--;
+                        break;
+                    }
+                    current = current.Next;
+                }
+            }
+            if (value == _root.Value)
             {
                 index = 0;
                 _root = _root.Next;
                 Length--;
                 return index;
             }
-            for (int i = 0; i < Length-1; i++)
+            if (value == _tail.Value)
             {
-                if (value == current.Next.Value)
+                index = Length - 1;
+                for (int i = 0; i < Length - 2; i++)
                 {
-                    current.Next = current.Next.Next;
-                    index = i + 1;
-                    Length--;
-                    break;
+                    current = current.Next;
                 }
-                current = current.Next;
+                current.Next = null;
+                _tail = current;
+                Length--;
+
             }
-            
             return index;
         }
         //********************************************************
@@ -466,6 +474,10 @@ namespace List
                             count++;
                             Length--;
                         }
+                        if (current.Next == null)
+                        {
+                            _tail = current;
+                        }
                     }
                 }
                 count++;
@@ -479,38 +491,51 @@ namespace List
                 {
                     Node tmp = current.Next;
                     if (!(tmp.Next is null))
-                    { 
+                    {
                         while (value == tmp.Next.Value)
                         {
-                            if(!(tmp.Next is null))
+                            if (!(tmp.Next is null))
                             {
                                 tmp = tmp.Next;
                                 count++;
                                 Length--;
-                            }    
+                            }
+                            if (tmp.Next == null)
+                            {
+                                _tail = tmp;
+                            }
                         }
+                    }
+                    if (tmp.Next == null)
+                    {
+                        _tail = tmp;
                     }
                     current.Next = tmp.Next;
                     count++;
                     Length--;
                 }
+                if (current.Next == null)
+                {
+                    _tail = current;
+                }
                 current = current.Next;
+
             }
             return count;
         }
         //********************************************************
-        public int RemoveAllByValue2(int value)
-        {
-            int count = 0;
-            int index = GetIndexByValue(value);
-            while (index != -1)
-            {
-                RemoveByIndex(index);
-                index = GetIndexByValue(value);
-                count++;
-            }
-            return count;
-        }
+        //public int RemoveAllByValue2(int value)
+        //{
+        //    int count = 0;
+        //    int index = GetIndexByValue(value);
+        //    while (index != -1)
+        //    {
+        //        RemoveByIndex(index);
+        //        index = GetIndexByValue(value);
+        //        count++;
+        //    }
+        //    return count;
+        //}
         //********************************************
         public void AscendingSort()
         {
@@ -552,30 +577,30 @@ namespace List
                 iNode = iNode.Next;
             }
         }
-        public LinkedList SortUp()
-        {
-            LinkedList newList = new LinkedList(new int[] { });
-            int l = Length;
-            while (l > 0)
-            {
-                newList.AddToBeginning((GetMaxValue()));
-                RemoveByIndex(GetIndexOfMaxValue());
-                l--;
-            }
-            return newList;
-        }
-        public LinkedList SortDown()
-        {
-            LinkedList newList = new LinkedList(new int[] { });
-            int l = Length;
-            while (l > 0)
-            {
-                newList.AddToBeginning((GetMinValue()));
-                RemoveByIndex(GetIndexOfMinValue());
-                l--;
-            }
-            return newList;
-        }
+        //public LinkedList SortUp()
+        //{
+        //    LinkedList newList = new LinkedList(new int[] { });
+        //    int l = Length;
+        //    while (l > 0)
+        //    {
+        //        newList.AddToBeginning((GetMaxValue()));
+        //        RemoveByIndex(GetIndexOfMaxValue());
+        //        l--;
+        //    }
+        //    return newList;
+        //}
+        //public LinkedList SortDown()
+        //{
+        //    LinkedList newList = new LinkedList(new int[] { });
+        //    int l = Length;
+        //    while (l > 0)
+        //    {
+        //        newList.AddToBeginning((GetMinValue()));
+        //        RemoveByIndex(GetIndexOfMinValue());
+        //        l--;
+        //    }
+        //    return newList;
+        //}
         public override string ToString()
         {
             if (Length != 0)
@@ -597,7 +622,15 @@ namespace List
         public override bool Equals(object obj)
         {
             LinkedList list = (LinkedList)obj;
-            if(this.Length != list.Length)
+            if (this._tail is null && list._tail is null)
+            {
+                return true;
+            }
+            if (this.Length != list.Length)
+            {
+                return false;
+            }
+            if (this._tail.Value != list._tail.Value)
             {
                 return false;
             }
@@ -620,7 +653,7 @@ namespace List
             if(currentThis.Value != currentList.Value)
             {
                 return false;
-            }    
+            }
 
             return true;
         }
@@ -628,6 +661,24 @@ namespace List
         {
             return base.GetHashCode();
         }
+        //private Node Pop() //нужен для Reverse2
+        //{
+        //    Node ret = _tail;
+        //    Length--;
+        //    if (Length > 1)
+        //    {
+        //        _tail = GetNodeByIndex(Length - 1);
+        //    }
+        //    else if (Length == 1)
+        //    {
+        //        _tail = _root;
+        //    }
+        //    else
+        //    {
+        //        Empty();
+        //    }
+        //    return ret;
+        //}
         private void AddFirstInEmptyLinkedList(int value)
         {
             Length = 1;

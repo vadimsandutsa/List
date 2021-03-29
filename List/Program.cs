@@ -52,7 +52,6 @@ namespace List
             linkedList2[2] = 555;
             Console.WriteLine(linkedList);
             LinkedList linkedList3 = new LinkedList(new int[] { 1, 2, 3 });
-            linkedList3 = linkedList3.Reverse2();
             LinkedList l = new LinkedList(new int[] { 1, 2, 3, 3, 4, 3 });
             Console.WriteLine(l);
             l.RemoveAllByValue(3);

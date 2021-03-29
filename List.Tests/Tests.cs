@@ -217,7 +217,7 @@ namespace List.Tests
         [TestCase(new int[] { 1, 2 }, 1, new int[] { 2 })]
         [TestCase(new int[] { 44, 55, 0, 66 }, 4, new int[] { })]
         [TestCase(new int[] { 1 }, 1, new int[] { })]
-        public void RemoveFirstElements(int[] actualArray, int numberOfElements, int[] expectedArray)
+        public void RemoveFirstElementsTest(int[] actualArray, int numberOfElements, int[] expectedArray)
         {
             Setup(actualArray, expectedArray);
             actual.RemoveFirstElements(numberOfElements);
