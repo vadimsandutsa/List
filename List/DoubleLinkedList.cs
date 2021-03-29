@@ -4,7 +4,7 @@ using System.Text;
 
 namespace List
 {
-    public class DoubleLinkedList
+    public class DoubleLinkedList : IList
     {
         public int Length { get; private set; }
 
@@ -150,23 +150,38 @@ namespace List
                 }
             }
         }
-        public void AddDoubledLinkedList(DoubleLinkedList linkedList)
+        public void AddRange(IList List)
         {
+            DoubleLinkedList linkedList = new DoubleLinkedList();
+            if(List is DoubleLinkedList)
+            {
+                linkedList = (DoubleLinkedList)List;
+            }    
             //создавать новые ноды с копированием значения value
             for (int i = 0; i < linkedList.Length; i++)
             {
                 Add(linkedList[i]);
             }
         }
-        public void AddDoubledLinkedListToTheBegining(DoubleLinkedList linkedList)
+        public void AddRangeToTheBegining(IList List)
         {
+            DoubleLinkedList linkedList = new DoubleLinkedList();
+            if (List is DoubleLinkedList)
+            {
+                linkedList = (DoubleLinkedList)List;
+            }
             for (int i = linkedList.Length - 1; i >= 0; i--)
             {
                 AddToBeginning(linkedList[i]);
             }
         }
-        public void AddDoubledLinkedListByIndex(DoubleLinkedList linkedList, int index)
+        public void AddRangeByIndex(IList List, int index)
         {
+            DoubleLinkedList linkedList = new DoubleLinkedList();
+            if (List is DoubleLinkedList)
+            {
+                linkedList = (DoubleLinkedList)List;
+            }
             CheckExceptionIndex(index);
             if (index != 0 && index != Length)
             {
@@ -179,11 +194,11 @@ namespace List
             {
                 if (index == 0)
                 {
-                    AddDoubledLinkedListToTheBegining(linkedList);
+                    AddRangeToTheBegining(linkedList);
                 }
                 if (index == Length)
                 {
-                    AddDoubledLinkedList(linkedList);
+                    AddRange(linkedList);
                 }
             }
         }
@@ -328,7 +343,7 @@ namespace List
         {
             Node temp = null;
             Node current = _root;
-            _tail = current;
+            //_tail = current;
             for (int i = 0; i < Length; i++)
             {
                 temp = current.Previous;
@@ -336,7 +351,8 @@ namespace List
                 current.Next = temp;
                 current = current.Previous;
             }
-            _tail.Previous.Next = _tail;// добавил воот это
+            //_tail.Previous.Next = _tail;// добавил воот это
+            _tail = _root;// _tail и _root меняем вконце, чтобы не писать то что закоменчено выше
             if (temp != null)
             {
                 _root = temp.Previous;
@@ -428,8 +444,9 @@ namespace List
             return index;
         }
         //********************************************************
-        public int RemoveAllByValue(int value, int count = 0)
+        public int RemoveAllByValue(int value)
         {
+            int count = 0;
             Node current = _root;
             if (value == _root.Value)
             {

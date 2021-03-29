@@ -47,11 +47,11 @@ namespace List.Tests
         [TestCase(new int[] { 44, 55, 0, 66 }, new int[] { 1, 2, 3 }, new int[] { 44, 55, 0, 66, 1, 2, 3 })]
         [TestCase(new int[] { 4, 5, 6 }, new int[] { 6, 6, 53 }, new int[] { 4, 5, 6, 6, 6, 53 })]
         [TestCase(new int[] { 4, 5, 6 }, new int[] { }, new int[] { 4, 5, 6})]
-        public void AddLinkedListTest(int[] actualArray, int[] addingArray, int[] expectedArray)
+        public void AddRangeTest(int[] actualArray, int[] addingArray, int[] expectedArray)
         {
             LinkedList actual = new LinkedList(actualArray);
             LinkedList adding = new LinkedList(addingArray);
-            actual.AddLinkedList(adding);
+            actual.AddRange(adding);
             LinkedList expected = new LinkedList(expectedArray);
             Assert.AreEqual(expected, actual);
 
@@ -59,11 +59,11 @@ namespace List.Tests
         [TestCase(new int[] { 4, 5, 6 }, new int[] { 1, 2, 3 }, new int[] { 1, 2, 3, 4, 5, 6 })]
         [TestCase(new int[] { 44, 55, 0, 66 }, new int[] { 1, 2, 3 }, new int[] { 1, 2, 3, 44, 55, 0, 66 })]
         [TestCase(new int[] { 4, 5, 6 }, new int[] { 6, 6, 53 }, new int[] { 6, 6, 53, 4, 5, 6 })]
-        public void AddLinkedListToTheBeginingTest(int[] actualArray, int[] addingArray, int[] expectedArray)
+        public void AddRangeToTheBeginingTest(int[] actualArray, int[] addingArray, int[] expectedArray)
         {
             LinkedList actual = new LinkedList(actualArray);
             LinkedList adding = new LinkedList(addingArray);
-            actual.AddLinkedListToTheBegining(adding);
+            actual.AddRangeToTheBegining(adding);
             LinkedList expected = new LinkedList(expectedArray);
             Assert.AreEqual(expected, actual);
         }
@@ -71,21 +71,21 @@ namespace List.Tests
         [TestCase(new int[] { 44, 55, 0, 66 }, new int[] { 1, 2, 3 }, 2, new int[] { 44, 55, 1, 2, 3, 0, 66 })]
         [TestCase(new int[] { 4, 5, 6 }, new int[] { 6, 6, 53 }, 3, new int[] { 4, 5, 6, 6, 6, 53 })]
         [TestCase(new int[] { 4, 5, 6 }, new int[] { 6, 6, 53 }, 0, new int[] { 6, 6, 53, 4, 5, 6 })]
-        public void AddLinkedListByIndexTest(int[] actualArray, int[] addingArray, int index, int[] expectedArray)
+        public void AddRangeByIndexTest(int[] actualArray, int[] addingArray, int index, int[] expectedArray)
         {
             LinkedList actual = new LinkedList(actualArray);
             LinkedList adding = new LinkedList(addingArray);
-            actual.AddLinkedListByIndex(adding, index);
+            actual.AddRangeByIndex(adding, index);
             LinkedList expected = new LinkedList(expectedArray);
             Assert.AreEqual(expected, actual);
         }
         [TestCase(new int[] { 1, 2, 3 }, new int[] { 4, 5, 6 }, -1)]
         [TestCase(new int[] { 1, 2, 3 }, new int[] { 4, 5, 6 }, 6)]
-        public void AddLinkedListByIndex_WhenIndexOutOfRange_IndexOutOfRangeExpection(int[] actualArray, int[] addingArray, int index)
+        public void AddRangeByIndex_WhenIndexOutOfRange_IndexOutOfRangeExpection(int[] actualArray, int[] addingArray, int index)
         {
             LinkedList actual = new LinkedList(actualArray);
             LinkedList adding = new LinkedList(addingArray);
-            Assert.Throws<IndexOutOfRangeException>(() => actual.AddLinkedListByIndex(adding, index));
+            Assert.Throws<IndexOutOfRangeException>(() => actual.AddRangeByIndex(adding, index));
         }
         [TestCase(new int[] { 1, 2, 3 }, new int[] { 1, 2 })]
         [TestCase(new int[] { 44, 55, 0, 66 }, new int[] { 44, 55, 0 })]

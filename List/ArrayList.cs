@@ -8,7 +8,7 @@ namespace List
     //самая быстрая сортировка это бинарная Binary Sort
     //изначально массив равен 10, если задаем длину сами, то сразу длина + 33 процента
     //XCriticalSoftware
-    public class ArrayList
+    public class ArrayList : IList
     {
         private int[] _array;
         public int Length { get; private set; }
@@ -105,8 +105,13 @@ namespace List
 
             Length++;
         }
-        public void AddArrayListToTheEnd(ArrayList arrList)
+        public void AddRange(IList List)
         {
+            ArrayList arrList = new ArrayList();
+            if (List is ArrayList)
+            {
+                arrList = (ArrayList)List;
+            }
             int[] tmpArray = new int[(_array.Length + arrList._array.Length)];
             for(int i = 0; i < Length; i++)
             {
@@ -121,8 +126,13 @@ namespace List
             _array = tmpArray;
             UpSize();
         }
-        public void AddArrayListToTheBegining(ArrayList arrList)
+        public void AddRangeToTheBegining(IList List)
         {
+            ArrayList arrList = new ArrayList();
+            if (List is ArrayList)
+            {
+                arrList = (ArrayList)List;
+            }
             int[] tmpArray = new int[(_array.Length + arrList._array.Length)];
             for (int i = 0; i < arrList.Length; i++)
             {
@@ -137,7 +147,31 @@ namespace List
             _array = tmpArray;
             UpSize();
         }
-        public void AddArrayListByIndex(ArrayList arrList, int index)
+        public void AddRangeByIndex(IList List, int index)
+        {
+            ArrayList list = new ArrayList();
+            if (List is ArrayList)
+            {
+                list = (ArrayList)List;
+            }
+            if (index > Length || index < 0)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            int newLength = Length + list.Length;
+            UpSize(newLength);
+            int tmp = index + list.Length;
+            for (int i = newLength - 1; i >= tmp; i--)
+            {
+                _array[i] = _array[i - list.Length];
+            }
+            for (int i = index; i < tmp; i++)
+            {
+                _array[i] = list._array[i - index];
+            }
+            Length = newLength;
+        }
+        public void AddRangeByIndex2(ArrayList arrList, int index)
         {
             if (index < 0 || index > Length)
             {
@@ -162,25 +196,7 @@ namespace List
             _array = tmpArray;
             UpSize();
         }
-        public void AddArrayListByIndex2(ArrayList list, int index)
-        {
-            if (index > Length || index < 0)
-            {
-                throw new IndexOutOfRangeException();
-            }
-            int newLength = Length + list.Length;
-            UpSize(newLength);
-            int tmp = index + list.Length;
-            for (int i = newLength - 1; i >= tmp; i--)
-            {
-                _array[i] = _array[i - list.Length];
-            }
-            for (int i = index; i < tmp; i++)
-            {
-                _array[i] = list._array[i - index];
-            }
-            Length = newLength;
-        }
+
         public void Remove()
         {
             Length--;
@@ -403,7 +419,7 @@ namespace List
             }
             return count;
         }
-        public void SortUp()
+        public void AscendingSort()
         {
             //Сортировка пузырьком
             for (int i = 1; i < Length; i++)
@@ -420,7 +436,7 @@ namespace List
                 }
             }
         }
-        public void SortDown()
+        public void DescendingSort()
         {
             //Сортировка выбором
             for (int i = 0; i < Length - 1; i++)
@@ -445,6 +461,15 @@ namespace List
             e1 = e2;
             e2 = temp;
         }
+        public override string ToString()
+        {
+            string value = "";
+            for (int i = 0; i < Length; i++)
+            {
+                value += $"{_array[i]} ";
+            }
+            return value;
+        }
         public override bool Equals(object obj)
         {
             ArrayList arrayList = (ArrayList)obj;
@@ -461,15 +486,6 @@ namespace List
                 }
             }
             return true;
-        }
-        public override string ToString()
-        {
-            string value = "";
-            for (int i = 0; i < Length; i++)
-            {
-                value += $"{_array[i]} ";
-            }
-            return value;
         }
         public override int GetHashCode()
         {

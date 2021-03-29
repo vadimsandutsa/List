@@ -16,16 +16,15 @@ namespace List
             a.AddByIndex(88, 2);
             a.Add(77);
             ArrayList b = new ArrayList(new int[] { 11, 22, 33, 44, 55 });
-            a.AddArrayListToTheBegining(b);
+            a.AddRangeToTheBegining(b);
             a.Add(3333);
-            a.AddArrayListToTheEnd(b);
+            a.AddRange(b);
             a.Add(676);
             ArrayList c = new ArrayList(new int[] { 0, 5, 0, 4, 0 });
-            a.AddArrayListByIndex(c, 3);
+            a.AddRangeByIndex(c, 3);
             a.RemoveAllByValue(0);
             a.RemoveFirstByValue(3);
             a.RemoveElementsByIndex(2, 3);
-            a.SortDown();
             //Console.WriteLine(a.RemoveAllByValue(111110));
             a.RemoveElementsByIndex(2, 1);
             a.RemoveElements(2);
@@ -44,7 +43,7 @@ namespace List
             Console.WriteLine(linkedList);
             LinkedList linkedList2 = new LinkedList(new int[] { 1, 2, 3, 4, 5 });
             //linkedList.AddLinkedListAtTheEnd(linkedList2);
-            linkedList.AddLinkedListToTheBegining(linkedList2);
+            linkedList.AddRangeToTheBegining(linkedList2);
             Console.WriteLine(linkedList);
             linkedList.Remove();
             Console.WriteLine(linkedList);

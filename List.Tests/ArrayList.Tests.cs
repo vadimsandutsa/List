@@ -46,11 +46,11 @@ namespace List.Tests
         [TestCase(new int[] { 4, 5, 6 }, new int[] { 1, 2, 3 }, new int[] { 4, 5, 6, 1, 2, 3 })]
         [TestCase(new int[] { 44, 55, 0, 66 }, new int[] { 1, 2, 3 }, new int[] { 44, 55, 0, 66 , 1, 2, 3 })]
         [TestCase(new int[] { 4, 5, 6 }, new int[] { 6, 6, 53 }, new int[] { 4, 5, 6, 6, 6, 53 })]
-        public void AddArrayListToTheEndTest(int[] actualArray, int[] addingArray, int[] expectedArray)
+        public void AddRangeTest(int[] actualArray, int[] addingArray, int[] expectedArray)
         {
             ArrayList actual = new ArrayList(actualArray);
             ArrayList adding = new ArrayList(addingArray);
-            actual.AddArrayListToTheEnd(adding);
+            actual.AddRange(adding);
             ArrayList expected = new ArrayList(expectedArray);
             Assert.AreEqual(expected, actual);
 
@@ -58,11 +58,11 @@ namespace List.Tests
         [TestCase(new int[] { 4, 5, 6 }, new int[] { 1, 2, 3 }, new int[] { 1, 2, 3, 4, 5, 6 })]
         [TestCase(new int[] { 44, 55, 0, 66 }, new int[] { 1, 2, 3 }, new int[] { 1, 2, 3, 44, 55, 0, 66 })]
         [TestCase(new int[] { 4, 5, 6 }, new int[] { 6, 6, 53 }, new int[] { 6, 6, 53, 4, 5, 6 })]
-        public void AddArrayListToTheBeginingTest(int[] actualArray, int[] addingArray, int[] expectedArray)
+        public void AddRangeToTheBeginingTest(int[] actualArray, int[] addingArray, int[] expectedArray)
         {
             ArrayList actual = new ArrayList(actualArray);
             ArrayList adding = new ArrayList(addingArray);
-            actual.AddArrayListToTheBegining(adding);
+            actual.AddRangeToTheBegining(adding);
             ArrayList expected = new ArrayList(expectedArray);
             Assert.AreEqual(expected, actual);
         }
@@ -70,41 +70,41 @@ namespace List.Tests
         [TestCase(new int[] { 44, 55, 0, 66 }, new int[] { 1, 2, 3 }, 2, new int[] { 44, 55, 1, 2, 3, 0, 66 })]
         [TestCase(new int[] { 4, 5, 6 }, new int[] { 6, 6, 53 }, 3, new int[] { 4, 5, 6, 6, 6, 53 })]
         [TestCase(new int[] { 4, 5, 6 }, new int[] { 6, 6, 53 }, 0, new int[] { 6, 6, 53, 4, 5, 6})]
-        public void AddArrayListByIndexTest(int [] actualArray, int[] addingArray, int index, int[] expectedArray)
+        public void AddRangeByIndexTest(int [] actualArray, int[] addingArray, int index, int[] expectedArray)
         {
             ArrayList actual = new ArrayList(actualArray);
             ArrayList adding = new ArrayList(addingArray);
-            actual.AddArrayListByIndex(adding, index);
+            actual.AddRangeByIndex(adding, index);
             ArrayList expected = new ArrayList(expectedArray);
             Assert.AreEqual(expected, actual);
         }
         [TestCase(new int[] { 1, 2, 3 }, new int[] { 4, 5, 6 }, -1)]
         [TestCase(new int[] { 1, 2, 3 }, new int[] { 4, 5, 6 }, 6)]
-        public void AddArrayListByIndex_WhenIndexOutOfRange_IndexOutOfRangeExpection(int[] actualArray, int[] addingArray, int index)
+        public void AddRangeIndex_WhenIndexOutOfRange_IndexOutOfRangeExpection(int[] actualArray, int[] addingArray, int index)
         {
             ArrayList actual = new ArrayList(actualArray);
             ArrayList adding = new ArrayList(addingArray);
-            Assert.Throws<IndexOutOfRangeException>(() => actual.AddArrayListByIndex(adding, index));
+            Assert.Throws<IndexOutOfRangeException>(() => actual.AddRangeByIndex(adding, index));
         }
         [TestCase(new int[] { 1, 2, 3 }, new int[] { 4, 5, 6 }, 1, new int[] { 1, 4, 5, 6, 2, 3 })]
         [TestCase(new int[] { 44, 55, 0, 66 }, new int[] { 1, 2, 3 }, 2, new int[] { 44, 55, 1, 2, 3, 0, 66 })]
         [TestCase(new int[] { 4, 5, 6 }, new int[] { 6, 6, 53 }, 3, new int[] { 4, 5, 6, 6, 6, 53 })]
         [TestCase(new int[] { 4, 5, 6 }, new int[] { 6, 6, 53 }, 0, new int[] { 6, 6, 53, 4, 5, 6 })]
-        public void AddArrayListByIndexTest2(int[] actualArray, int[] addingArray, int index, int[] expectedArray)
+        public void AddRangeByIndexTest2(int[] actualArray, int[] addingArray, int index, int[] expectedArray)
         {
             ArrayList actual = new ArrayList(actualArray);
             ArrayList adding = new ArrayList(addingArray);
-            actual.AddArrayListByIndex2(adding, index);
+            actual.AddRangeByIndex2(adding, index);
             ArrayList expected = new ArrayList(expectedArray);
             Assert.AreEqual(expected, actual);
         }
         [TestCase(new int[] { 1, 2, 3 }, new int[] { 4, 5, 6 }, -1)]
         [TestCase(new int[] { 1, 2, 3 }, new int[] { 4, 5, 6 }, 6)]
-        public void AddArrayListByIndex2_WhenIndexOutOfRange_IndexOutOfRangeExpection(int[] actualArray, int[] addingArray, int index)
+        public void AddRangeByIndex2_WhenIndexOutOfRange_IndexOutOfRangeExpection(int[] actualArray, int[] addingArray, int index)
         {
             ArrayList actual = new ArrayList(actualArray);
             ArrayList adding = new ArrayList(addingArray);
-            Assert.Throws<IndexOutOfRangeException>(() => actual.AddArrayListByIndex2(adding, index));
+            Assert.Throws<IndexOutOfRangeException>(() => actual.AddRangeByIndex2(adding, index));
         }
         [TestCase(new int[] { 1, 2, 3 }, new int[] { 1, 2 })]
         [TestCase(new int[] { 44, 55, 0, 66 }, new int[] { 44, 55, 0 })]
@@ -318,21 +318,21 @@ namespace List.Tests
         [TestCase(new int[] { 1, 7, 3, 8, 3, 4 }, new int[] { 1, 3, 3, 4, 7, 8 })]
         [TestCase(new int[] { 1, 64, 5, 63 }, new int[] { 1, 5, 63, 64 })]
         [TestCase(new int[] { 1, 42, 5, 3, 41 }, new int[] { 1, 3, 5, 41, 42 })]
-        public void SortUpTest(int[] actualArray, int[] expectedArray)
+        public void AscendingSortTest(int[] actualArray, int[] expectedArray)
         {
             ArrayList actual = new ArrayList(actualArray);
             ArrayList expected = new ArrayList(expectedArray);
-            actual.SortUp();
+            actual.AscendingSort();
             Assert.AreEqual(actual, expected);
         }
         [TestCase(new int[] { 1, 7, 3, 8, 3, 4 }, new int[] { 8, 7, 4, 3, 3, 1 })]
         [TestCase(new int[] { 1, 64, 5, 63 }, new int[] { 64, 63, 5, 1 })]
         [TestCase(new int[] { 1, 42, 5, 3, 41 }, new int[] { 42, 41, 5, 3, 1 })]
-        public void SortDownTest(int[] actualArray, int[] expectedArray)
+        public void DescendingSort(int[] actualArray, int[] expectedArray)
         {
             ArrayList actual = new ArrayList(actualArray);
             ArrayList expected = new ArrayList(expectedArray);
-            actual.SortDown();
+            actual.DescendingSort();
             Assert.AreEqual(actual, expected);
         }
     }

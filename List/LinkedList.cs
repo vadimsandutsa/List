@@ -8,7 +8,7 @@ using System.Text;
 //мерджсофт круто для линкед круто, для эррэй нет, бинари тоже
 namespace List
 {
-    public class LinkedList
+    public class LinkedList : IList
     {
         public int Length { get; private set; }
         public int this[int index]
@@ -134,23 +134,38 @@ namespace List
                 }
             }
         }
-        public void AddLinkedList(LinkedList linkedList)
+        public void AddRange(IList List)
         {
+            LinkedList linkedList = new LinkedList();
+            if (List is LinkedList)
+            {
+                linkedList = (LinkedList)List;
+            }
             //создавать новые ноды с копированием значения value
-            for(int i = 0; i < linkedList.Length; i++)
+            for (int i = 0; i < linkedList.Length; i++)
             {
                 Add(linkedList[i]);
             }
         }
-        public void AddLinkedListToTheBegining(LinkedList linkedList)
+        public void AddRangeToTheBegining(IList List)
         {
-            for(int i = linkedList.Length - 1; i >= 0; i--)
+            LinkedList linkedList = new LinkedList();
+            if (List is LinkedList)
+            {
+                linkedList = (LinkedList)List;
+            }
+            for (int i = linkedList.Length - 1; i >= 0; i--)
             {
                 AddToBeginning(linkedList[i]);
             }
         }
-        public void AddLinkedListByIndex(LinkedList linkedList, int index)
+        public void AddRangeByIndex(IList List, int index)
         {
+            LinkedList linkedList = new LinkedList();
+            if (List is LinkedList)
+            {
+                linkedList = (LinkedList)List;
+            }
             CheckExceptionIndex(index);
             if (index != 0 && index != Length)
             {
@@ -163,11 +178,11 @@ namespace List
             {
                 if (index == 0)
                 {
-                    AddLinkedListToTheBegining(linkedList);
+                    AddRangeToTheBegining(linkedList);
                 }
                 if (index == Length)
                 {
-                    AddLinkedList(linkedList);
+                    AddRange(linkedList);
                 }
             }
         }
@@ -435,8 +450,9 @@ namespace List
             return index;
         }
         //********************************************************
-        public int RemoveAllByValue(int value, int count = 0)
+        public int RemoveAllByValue(int value)
         {
+            int count = 0;
             Node current = _root;
             if (value == _root.Value)
             {
@@ -496,24 +512,6 @@ namespace List
             return count;
         }
         //********************************************
-        public override string ToString()
-        {
-            if (Length != 0)
-            {
-                Node current = _root;
-                string s = current.Value + " ";
-                while (!(current.Next is null))
-                {
-                    current = current.Next;
-                    s += current.Value + " ";
-                }
-                return s;
-            }
-            else
-            {
-                return String.Empty;
-            }
-        }
         public void AscendingSort()
         {
             Node iNode = _root;
@@ -577,6 +575,24 @@ namespace List
                 l--;
             }
             return newList;
+        }
+        public override string ToString()
+        {
+            if (Length != 0)
+            {
+                Node current = _root;
+                string s = current.Value + " ";
+                while (!(current.Next is null))
+                {
+                    current = current.Next;
+                    s += current.Value + " ";
+                }
+                return s;
+            }
+            else
+            {
+                return String.Empty;
+            }
         }
         public override bool Equals(object obj)
         {
