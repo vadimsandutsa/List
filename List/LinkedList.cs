@@ -81,16 +81,6 @@ namespace List
                 _tail = null;
             }
         }
-        public Node GetNodeByIndex(int index)
-        {
-            CheckExceptionIndex(index);
-            Node current = _root;
-            for (int i = 0; i < index; i++)
-            {
-                current = current.Next;
-            }
-            return current;
-        }
         public void Add(int value)
         {
             if (Length != 0)
@@ -704,6 +694,16 @@ namespace List
             {
                 throw new IndexOutOfRangeException();
             }
+        }
+        private Node GetNodeByIndex(int index)
+        {
+            CheckExceptionIndex(index);
+            Node current = _root;
+            for (int i = 0; i < index; i++)
+            {
+                current = current.Next;
+            }
+            return current;
         }
     }
 }

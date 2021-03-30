@@ -12,7 +12,6 @@ namespace List
     {
         private int[] _array;
         public int Length { get; private set; }
-
         public int this[int index]
         {
             get
@@ -50,7 +49,6 @@ namespace List
             _array = new int[length];
             UpSize();
         }
-
         public ArrayList(int[] value)
         {
             Length = value.Length;
@@ -58,7 +56,6 @@ namespace List
             _array = value;
             UpSize();
         }
-
         public void Add(int value)
         {
             if (Length >= _array.Length)
@@ -196,7 +193,6 @@ namespace List
             _array = tmpArray;
             UpSize();
         }
-
         public void Remove()
         {
             Length--;

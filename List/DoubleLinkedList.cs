@@ -10,7 +10,6 @@ namespace List
 
         private Node _root;
         private Node _tail;
-        //private Node _previous;
 
         public int this[int index]
         {
@@ -74,36 +73,6 @@ namespace List
         //    }
         //    return current;
         //}
-        private Node GetNodeByIndex(int index)
-        {
-            if ((index < 0) || (index > Length))
-            {
-                throw new IndexOutOfRangeException("Индекс вне множества.");
-            }
-
-            Node root = _root;
-            Node tail = _tail;
-
-            if (index < Length / 2)
-            {
-                for (int i = 0; i < index; i++)
-                {
-                    root = root.Next;
-                }
-
-                return root;
-            }
-            else
-            {
-                for (int i = Length - 1; i >= index; i--)
-                {
-                    tail = tail.Previous;
-                }
-
-                return tail.Next; // добавил .Next
-            }
-
-        }
         public void Add(int value)
         {
             if (Length != 0)
@@ -480,7 +449,6 @@ namespace List
             }
             return index;
         }
-        //********************************************************
         public int RemoveAllByValue(int value)
         {
             int count = 0;
@@ -546,7 +514,6 @@ namespace List
             }
             return count;
         }
-        //********************************************************
         //public int RemoveAllByValue2(int value)
         //{
         //    int count = 0;
@@ -559,7 +526,6 @@ namespace List
         //    }
         //    return count;
         //}
-        //********************************************
         public override string ToString()
         {
             if (Length != 0)
@@ -715,6 +681,36 @@ namespace List
             {
                 throw new IndexOutOfRangeException();
             }
+        }
+        private Node GetNodeByIndex(int index)
+        {
+            if ((index < 0) || (index > Length))
+            {
+                throw new IndexOutOfRangeException("Индекс вне множества.");
+            }
+
+            Node root = _root;
+            Node tail = _tail;
+
+            if (index < Length / 2)
+            {
+                for (int i = 0; i < index; i++)
+                {
+                    root = root.Next;
+                }
+
+                return root;
+            }
+            else
+            {
+                for (int i = Length - 1; i >= index; i--)
+                {
+                    tail = tail.Previous;
+                }
+
+                return tail.Next; // добавил .Next
+            }
+
         }
     }
 }
